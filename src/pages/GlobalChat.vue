@@ -3,7 +3,7 @@ import { fetchLastGlobalChatMessages, sendGlobalChatMessage, subscribeToNewGloba
 
 export default {
     name: 'GlobalChat',
-    components: { },
+    components: {},
     data() {
         return {
             messages: [],
@@ -21,97 +21,84 @@ export default {
                     content: this.newMessage.content,
                 });
             } catch (error) {
-                // TODO...
+
             }
-            
+
             this.newMessage.content = '';
         }
     },
     async mounted() {
-        // TODO: Arrancar con la autenticación con Supabase :D
         subscribeToNewGlobalChatMessages(async newMessage => {
             this.messages.push(newMessage);
-            
+
             await this.$nextTick();
-            
+
             this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
         });
 
         this.messages = await fetchLastGlobalChatMessages();
 
-        // Accedemos al "template ref" con la propiedad especial $refs de Vue.
-        // console.log("Altura del scroll: ", this.$refs.chatContainer.scrollHeight);
-
-        /*
-        # nextTick
-        Vue, cuando detecta un cambio que requiere actualizar el DOM, no lo aplica automáticamente.
-        Sino que espera a ver si no hay otras instrucciones que también vayan a requerir tocar el DOM.
-        Esto es con el fin de poder agrupar en un "batch" de modificaciones todos los cambios, y así
-        solo manipular el DOM una vez.
-
-        Es importante que Vue haga esto, porque el renderizado de la página es una de las tareas más
-        pesadas que puede realizar un browser.
-
-        En la mayoría de los casos, ni nos enteramos de que esto pasa.
-        Pero hay ocasiones, como esta, donde nosotros necesitamos esperar a que Vue actualice el DOM
-        antes de realizar la próxima acción.
-        Para poder mover el scroll, necesitamos que se actualice el contenido del <section> con los
-        nuevos mensajes.
-
-        Ahí es donde entre nextTick().
-        Esta función retorna una Promise que se resuelve cuando Vue actualiza el DOM.
-        */
         await this.$nextTick();
-        
+
         this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
     }
 }
 </script>
 
 <template>
-   <h2>Chat Global</h2>
+    <section data-aos="fade" class="px-30 mt-5 mb-5 h-[95vh] lg:h-[80vh] chat-global flex flex-col lg:flex-row justify-center gap-10">
+        <h2 class="hidden">Chat global</h2>
+        <section
+            class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-[#348534] border-1 border-t-0 rounded w-full lg:w-9/12"
+            ref="chatContainer">
+            <div
+                class="sticky top-0 mt-1 bg-[#348534] p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                </svg>
+                <h3>Chat Global</h3>
+            </div>
+            <div class="overflow-y-auto h-[80%]">
+                <h3 class="hidden">Lista de mensajes</h3>
 
-    <div class="flex gap-4">
-        <section class="overflow-y-auto w-9/12 h-100 p-4 border border-gray-200 rounded" ref="chatContainer">
-            <h2 class="sr-only">Lista de mensajes</h2>
-
-            <ol class="flex flex-col items-start gap-4">
-                <li
-                    v-for="message in messages"
-                    :key="message.id"
-                    class="p-4 rounded bg-gray-100"
-                >
-                    <div class="mb-1"><span class="font-bold">{{ message.email }}</span> dijo:</div>
-                    <div class="mb-1">{{ message.content }}</div>
-                    <div class="text-sm text-gray-700">{{ message.created_at }}</div>
-                </li>
-            </ol>
+                <ol class="flex flex-col items-start gap-4 p-4">
+                    <li v-for="message in messages" :key="message.id"
+                        class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
+                        <p class="mb-1"><span class="font-bold text-[#348534]">{{ message.email }}</span> dijo:</p>
+                        <p class="mb-1">{{ message.content }}</p>
+                        <p class="text-sm text-gray-800">{{ message.created_at }}</p>
+                    </li>
+                </ol>
+            </div>
         </section>
-        <section class="w-3/12">
-            <h2 class="mb-4 text-xl">Enviar un mensaje</h2>
-            <form 
-                action="#"
-                @submit.prevent="handleSubmit"
-            >
+
+        <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
+            <h3 class="hidden">Enviar un mensaje</h3>
+            <form action="#" @submit.prevent="handleSubmit">
                 <div class="mb-4">
-                    <label for="email" class="block mb-1">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        class="w-full p-2 border border-gray-300 rounded"
-                        v-model="newMessage.email"
-                    >
+                    <label for="email" class="hidden block mb-1">Email</label>
+                    <input placeholder="Email *" type="email" id="email"
+                        class="w-full p-2 border-1 border-[#348534] focus:outline-none focus:ring-1 focus:ring-[#348534] rounded"
+                        v-model="newMessage.email">
                 </div>
                 <div class="mb-4">
-                    <label for="content" class="block mb-1">Mensaje</label>
-                    <textarea
-                        id="content"
-                        class="w-full p-2 border border-gray-300 rounded"
-                        v-model="newMessage.content"
-                    ></textarea>
+                    <label for="content" class="hidden block mb-1">Mensaje</label>
+                    <textarea placeholder="Mensaje *" id="content"
+                        class="resize-none w-full p-2 border-1 border-[#348534] focus:outline-none focus:ring-1 focus:ring-[#348534] rounded"
+                        v-model="newMessage.content"></textarea>
                 </div>
-                <button type="submit" class="transition px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700 text-white">Enviar</button>
+                <button type="submit" class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
+                    bg-[#348534] hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                    Enviar</button>
             </form>
         </section>
-    </div>
+
+    </section>
 </template>

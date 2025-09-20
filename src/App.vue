@@ -6,10 +6,14 @@ export default {
     name: 'App',
     components: { AppNavbar, AppFooter, },
 }
+
+
 </script>
 
 <template>
-    <AppNavbar />
+    <header>
+        <AppNavbar />
+    </header>
     <main>
         <h1 class="hidden">Volunteco Social Media</h1>
         <RouterView />

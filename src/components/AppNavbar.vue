@@ -1,25 +1,62 @@
 <script>
 export default {
     name: 'AppNavbar',
+    data() {
+        return {
+            open: false
+        }
+    }
 }
 </script>
 
 <template>
-    <nav class="flex items-center gap-8 p-4 bg-slate-200">
-        <RouterLink class="text-xl" to="/">DV Social</RouterLink>
-        <ul class="flex gap-4">
-            <li>
-                <RouterLink to="/">Home</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/chat">Chat general</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/ingresar">Ingresar</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/crear-cuenta">Crear cuenta</RouterLink>
-            </li>
-        </ul>
+    <nav class="bg-white border-b-[#348534] border-b-3 p-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <RouterLink to="/" class="flex items-center space-x-3">
+                <img src="../../public/logo-2.png" class="h-16" alt="Logo Volunteco" />
+                <p class="text-4xl text-[#348534] font-semibold whitespace-nowrap">Volunteco</p>
+            </RouterLink>
+            <!-- Boton del menu hamburguesa -->
+            <button type="button"
+                @click="open = !open"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#348534] rounded-lg md:hidden hover:bg-[#348534] 
+                focus:outline-none focus:ring-2 focus:ring-[#348534] hover:text-white transition duration-300 ease-in-out"
+                aria-controls="navbar-default" aria-expanded="false">
+                <!-- Svg del btn del menu -->
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <!-- Menu de navegacion -->
+            <div :class="[open ? 'block' : 'hidden', 'w-full md:block md:w-auto']" id="navbar-default">
+                <ul
+                    class="font-medium text-xl flex flex-col p-4 md:p-0 mt-4 text-[#348534] rounded-lg 
+                    md:flex-row md:space-x-8 md:mt-0 text-center">
+                    <li>
+                        <RouterLink to="/"
+                            class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
+                            md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
+                            aria-current="page">Inicio</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/chat"
+                            class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
+                            md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
+                            aria-current="page">Chat</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/posteos"
+                            class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
+                            md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
+                            aria-current="page">Posteos</RouterLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
+
+
+
 </template>
