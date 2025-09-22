@@ -10,6 +10,7 @@
     <img src="https://skillicons.dev/icons?i=vue,tailwind,supabase,vite" />
   </a>
 </p>
+
 - Vue
 - Tailwind
 - Supabase

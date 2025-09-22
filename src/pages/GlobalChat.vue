@@ -33,24 +33,31 @@ export default {
 
             await this.$nextTick();
 
-            this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
+            this.$refs.messagesContainer.scrollTo({
+                top: this.$refs.messagesContainer.scrollHeight,
+                behavior: "smooth"
+            });
         });
 
         this.messages = await fetchLastGlobalChatMessages();
 
         await this.$nextTick();
 
-        this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
+        this.$refs.messagesContainer.scrollTo({
+            top: this.$refs.messagesContainer.scrollHeight,
+            behavior: "smooth"
+        });
+
     }
 }
 </script>
 
 <template>
-    <section data-aos="fade" class="px-30 mt-5 mb-5 h-[95vh] lg:h-[80vh] chat-global flex flex-col lg:flex-row justify-center gap-10">
+    <section data-aos="fade"
+        class="px-10 md:px-20 lg:px-30 mt-5 mb-5 h-[95vh] lg:h-[80vh] chat-global flex flex-col lg:flex-row justify-center gap-10">
         <h2 class="hidden">Chat global</h2>
         <section
-            class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-[#348534] border-1 border-t-0 rounded w-full lg:w-9/12"
-            ref="chatContainer">
+            class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-[#348534] border-1 border-t-0 rounded w-full lg:w-9/12">
             <div
                 class="sticky top-0 mt-1 bg-[#348534] p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -60,7 +67,7 @@ export default {
                 </svg>
                 <h3>Chat Global</h3>
             </div>
-            <div class="overflow-y-auto h-[80%]">
+            <div class="overflow-y-auto h-[80%]" ref="messagesContainer">
                 <h3 class="hidden">Lista de mensajes</h3>
 
                 <ol class="flex flex-col items-start gap-4 p-4">
