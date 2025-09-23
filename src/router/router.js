@@ -9,7 +9,7 @@ const routes = [
     { path: '/',                                    component: Home, },
     { path: '/chat',                                component: GlobalChat, },
     { path: '/ingresar',                            component: Login, },
-    { path: '/crear-cuenta',                        component: Register, },
+    { path: '/registrarse',                         component: Register, },
     { path: '/:notFound',                           component: NotFound, },
 ];
 

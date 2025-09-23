@@ -17,11 +17,10 @@ export default {
                 <p class="text-4xl text-[#348534] font-semibold whitespace-nowrap">Volunteco</p>
             </RouterLink>
             <!-- Boton del menu hamburguesa -->
-            <button type="button"
-                @click="open = !open"
+            <button type="button" @click="open = !open"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#348534] rounded-lg md:hidden hover:bg-[#348534] 
-                focus:outline-none focus:ring-2 focus:ring-[#348534] hover:text-white transition duration-300 ease-in-out"
-                aria-controls="navbar-default" aria-expanded="false">
+                focus:outline-none focus:ring-2 focus:ring-[#348534] hover:text-white transition duration-300 ease-in-out" aria-controls="navbar-default"
+                aria-expanded="false">
                 <!-- Svg del btn del menu -->
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 17 14">
@@ -31,9 +30,8 @@ export default {
             </button>
             <!-- Menu de navegacion -->
             <div :class="[open ? 'block' : 'hidden', 'w-full md:block md:w-auto']" id="navbar-default">
-                <ul
-                    class="font-medium text-xl flex flex-col p-4 md:p-0 mt-4 text-[#348534] rounded-lg 
-                    md:flex-row md:space-x-8 md:mt-0 text-center">
+                <ul class="font-medium text-xl flex flex-col p-4 mt-4 text-[#348534] rounded-lg 
+                    md:flex-row md:space-x-8 md:mt-0 text-center items-center">
                     <li>
                         <RouterLink to="/"
                             class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
@@ -51,6 +49,18 @@ export default {
                             class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
                             md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
                             aria-current="page">Posteos</RouterLink>
+                    </li>
+                    <li class="border-2 rounded hover:border-green-600 transition duration-300 ease-in-out mt-2 md:mt-0">
+                        <RouterLink to="/ingresar"
+                            class="w-[100%] px-4 py-2 block text-[#348534] hover:text-green-600 transition duration-300 ease-in-out  text-[#348534]"
+                            aria-current="page">
+                        Iniciar Sesión</RouterLink>
+                    </li>
+                    <li class="bg-[#348534] rounded hover:bg-green-600 transition duration-300 ease-in-out mt-5 md:mt-0">
+                        <RouterLink to="/registrarse"
+                            class="w-[100%] px-4 py-2 block text-white font-bold"
+                            aria-current="page">
+                        Registrarse</RouterLink>
                     </li>
                 </ul>
             </div>

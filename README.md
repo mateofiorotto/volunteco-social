@@ -48,3 +48,13 @@ Desarrollar una red social de tema libre:
 - Usabilidad del sitio
 - Accesibilidad del sitio
 - Correcto uso de las herramientas implementadas
+
+### Por hacer
+- pagina 404
+- pagina login
+- alertas
+- validaciones form en tiempo real
+- pagina de posteos
+- pagina de usuarios individuales
+- pagina de editar perfil
+- implementacion de auth
