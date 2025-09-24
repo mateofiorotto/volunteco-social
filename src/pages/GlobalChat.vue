@@ -68,7 +68,7 @@ export default {
                 <h3>Chat Global</h3>
             </div>
             <div class="overflow-y-auto h-[80%]" ref="messagesContainer">
-                <h3 class="hidden">Lista de mensajes</h3>
+                <h4 class="sr-only">Lista de mensajes</h4>
 
                 <ol class="flex flex-col items-start gap-4 p-4">
                     <li v-for="message in messages" :key="message.id"
@@ -82,18 +82,18 @@ export default {
         </section>
 
         <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
-            <h3 class="hidden">Enviar un mensaje</h3>
+            <h3 class="sr-only">Enviar un mensaje</h3>
             <form action="#" @submit.prevent="handleSubmit">
                 <div class="mb-4">
-                    <label for="email" class="hidden block mb-1">Email</label>
+                    <label for="email" class="sr-only block mb-1">Email</label>
                     <input placeholder="Email *" type="email" id="email"
-                        class="w-full p-2 border-1 border-[#348534] focus:outline-none focus:ring-1 focus:ring-[#348534] rounded"
+                        class="w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
                         v-model="newMessage.email">
                 </div>
                 <div class="mb-4">
-                    <label for="content" class="hidden block mb-1">Mensaje</label>
+                    <label for="content" class="sr-only block mb-1">Mensaje</label>
                     <textarea placeholder="Mensaje *" id="content"
-                        class="resize-none w-full p-2 border-1 border-[#348534] focus:outline-none focus:ring-1 focus:ring-[#348534] rounded"
+                        class="resize-none w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
                         v-model="newMessage.content"></textarea>
                 </div>
                 <button type="submit" class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
@@ -109,3 +109,14 @@ export default {
 
     </section>
 </template>
+
+<style>
+input::placeholder {
+    color: #348534;
+}
+
+textarea::placeholder {
+    color: #348534;
+}
+
+</style>

@@ -53,7 +53,7 @@ Desarrollar una red social de tema libre:
 - pagina 404
 - pagina login
 - alertas
-- validaciones form en tiempo real
+- validaciones form en tiempo real. Manejo, reinicio, etc..
 - pagina de posteos
 - pagina de usuarios individuales
 - pagina de editar perfil
