@@ -1,15 +1,32 @@
 <script>
+import { register } from '../services/auth';
 
 export default {
     name: 'Register',
     components: {},
+    data() {
+        return {
+            user: {
+                email: '',
+                password: '',
+            },
+            loading: false,
+        }
+    },
     methods: {
-        handleSubmit() {
-            console.log("Formulario enviado");
+        async handleSubmit() {
+            try {
 
-            //reset form con v-model to - do
-
-            //to-do logica, llamar al servicio.. etc. validaciones
+                this.loading = true;
+                
+                await register(this.user.email, this.user.password);
+                
+                this.$router.push('/mi-perfil');
+            } catch (error) {
+                console.log(error);
+                // por manejar error
+            }
+            this.loading = false;
         }
     }
 }
@@ -17,7 +34,8 @@ export default {
 
 <template>
     <section class="registrarse overflow-hidden">
-        <div class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5 bg-green-900 border-b-3 border-white">
+        <div
+            class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5 bg-green-900 border-b-3 border-white">
             <div data-aos="zoom-out" class="contenedor-principal w-full max-w-[80%] rounded-3xl overflow-hidden">
                 <div class="md:flex w-full">
                     <!--img-->
@@ -25,7 +43,7 @@ export default {
                         <img src="/public/register.jpeg" alt="Imagen de registro" class="w-full h-full object-cover" />
                     </div>
                     <div
-                        class="w-full md:w-1/2 py-10 px-5 md:px-10 bg-slate-100 text-[#348534] justify-center flex flex-col">
+                        class="w-full md:w-1/2 py-10 px-5 lg:px-10 xl:px-30 bg-slate-100 text-[#348534] justify-center flex flex-col">
                         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Registrate</h2>
                         <form @submit.prevent="handleSubmit">
                             <div>
@@ -37,6 +55,7 @@ export default {
                                             <input id="nombre_completo" type="text" name="nombre_completo"
                                                 class="w-full px-3 py-2 rounded-lg border-1 border-[#348534] outline-none focus:border-green-600"
                                                 placeholder="Nombre Completo *">
+                                                
                                         </div>
                                     </div>
                                     <!--Campo mail-->
@@ -45,7 +64,9 @@ export default {
                                         <div class="flex">
                                             <input id="email" type="email"
                                                 class="w-full px-3 py-2 rounded-lg border-1 border-[#348534] outline-none focus:border-green-600"
-                                                placeholder="Correo electrónico *">
+                                                placeholder="Correo electrónico *"
+                                                v-model="user.email"
+                                                >
                                         </div>
                                     </div>
                                     <!--Campo contraseña-->
@@ -54,7 +75,9 @@ export default {
                                         <div class="flex">
                                             <input id="password" type="password"
                                                 class="w-full px-3 py-2 rounded-lg border-1 border-[#348534] outline-none focus:border-green-600"
-                                                placeholder="Contraseña *">
+                                                placeholder="Contraseña *"
+                                                v-model="user.password"
+                                                >
                                         </div>
                                     </div>
                                     <!--Campo repetir contraseña-->

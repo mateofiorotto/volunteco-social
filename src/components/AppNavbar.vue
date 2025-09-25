@@ -1,10 +1,26 @@
 <script>
+import { logout, subscribeToAuthStateChanges } from '../services/auth';
+
 export default {
     name: 'AppNavbar',
     data() {
         return {
-            open: false
+            open: false,
+
+            user: {
+                id: null,
+                email: null
+            }
         }
+    },
+    methods: {
+        handleLogout() {
+            logout();
+            this.$router.push('/iniciar-sesion');
+        }
+    },
+    mounted() {
+        subscribeToAuthStateChanges(newUserState => this.user = newUserState);
     }
 }
 </script>
@@ -38,6 +54,25 @@ export default {
                             md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
                             aria-current="page">Inicio</RouterLink>
                     </li>
+
+                    <!--Botones de login y registro-->
+                   <template v-if="user.id === null">
+                    <li
+                        class="border-2 rounded hover:border-green-600 transition duration-300 ease-in-out mt-2 md:mt-0">
+                        <RouterLink to="/iniciar-sesion"
+                            class="w-[100%] px-4 py-2 block text-[#348534] hover:text-green-600 transition duration-300 ease-in-out  text-[#348534]"
+                            aria-current="page">
+                            Iniciar Sesión</RouterLink>
+                    </li>
+                    <li
+                        class="bg-[#348534] rounded hover:bg-green-600 transition duration-300 ease-in-out mt-5 md:mt-0">
+                        <RouterLink to="/registrarse" class="w-[100%] px-4 py-2 block text-white font-bold"
+                            aria-current="page">
+                            Registrarse</RouterLink>
+                    </li>
+                    </template>
+                    <!--Si el usuario esta autenticado, mostrar chat, posteos, nombre(click para entrar al perfil) y cerrar sesion-->
+                    <template v-else>
                     <li>
                         <RouterLink to="/chat"
                             class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
@@ -50,18 +85,24 @@ export default {
                             md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
                             aria-current="page">Posteos</RouterLink>
                     </li>
-                    <li class="border-2 rounded hover:border-green-600 transition duration-300 ease-in-out mt-2 md:mt-0">
-                        <RouterLink to="/ingresar"
-                            class="w-[100%] px-4 py-2 block text-[#348534] hover:text-green-600 transition duration-300 ease-in-out  text-[#348534]"
-                            aria-current="page">
-                        Iniciar Sesión</RouterLink>
+                    <li>
+                        <RouterLink to="/mi-perfil"
+                            class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
+                            md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
+                            aria-current="page">{{ user.email }}asd</RouterLink>
                     </li>
-                    <li class="bg-[#348534] rounded hover:bg-green-600 transition duration-300 ease-in-out mt-5 md:mt-0">
-                        <RouterLink to="/registrarse"
-                            class="w-[100%] px-4 py-2 block text-white font-bold"
-                            aria-current="page">
-                        Registrarse</RouterLink>
+                    <li>
+                        <form action="#" @submit.prevent="handleLogout">
+                            <button type="submit"
+                                class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                                <i class="fa fa-sign-out">
+                                    <span class="sr-only">icono de logout</span>
+                                </i>
+                            </button>
+                        </form>
                     </li>
+                    </template>
+
                 </ul>
             </div>
         </div>
