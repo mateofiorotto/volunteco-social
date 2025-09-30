@@ -1,59 +1,121 @@
 // Servicio para todas las funciones del chat global.
 import { supabase } from "./supabase";
 
-/**
- * 
- * @returns {Promise<{id: string, email: string, content: string, created_at: string}[]>}
- */
-export async function fetchLastGlobalChatMessages() {
-    const { data, error } = await supabase
-        .from('global_chat_messages')
-        .select();
 
-    if(error) {
-        console.error('[global-chat.js fetchLastGlobalChatMessages] Error al traer los mensajes iniciales del chat.', error);
-        throw new Error(error.message);
+/**
+ * Traer los ultimos mensajes de la tabla del chat, ordenados de forma cronologica y con un limite
+ * 
+ * @async
+ * @function getLastChatMessages
+ * @returns {Promise<Object[]>} Lista de mensajes con datos del user
+ * @throws {Error} errores desde supabase
+ */
+export async function getLastChatMessages() {
+    const { data, error } = await supabase
+        .from('chat_messages')
+        .select(`
+      id,
+      message,
+      created_at,
+      user_profile_id,
+      user_profiles (
+        id,
+        full_name,
+        email,
+        biography,
+        career
+      )
+    `)
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+    if (error) {
+        console.error('[global-chat.js getLastMessages] Error al traer los mensajes: ', error);
+        throw error;
     }
 
+    console.log("[global-chat.js getLastMessages] Lista de los mensajes: ", data);
     return data;
 }
 
 /**
- * 
- * @param {{email: string, content: string}} data 
+ * Metodo para suscribirse a la tabla del chat en tiempo real usando la api realtime
+ * Al detectar un mensaje nuevo, se obtiene el mensaje, el usuario y se pasa al callback.
+ *
+ * @async
+ * @function subscribeToGlobalChatNewMessages
+ * @param {(message: Object) => void} callback funcion que se ejecuta con el mensaje nuevo
+ * @returns {void}
  */
-export async function sendGlobalChatMessage({email, content}) {
-    const { data, error } = await supabase
-        .from('global_chat_messages')
-        .insert({
-            email,
-            content,
-        });
-
-        if(error) {
-            console.error('[global-chat.js sendGlobalChatMessage] Error al enviar el nuevo mensaje.', error);
-            throw new Error(error.message);
-        }
-}
-
-/**
- * 
- * @param {(messages: {id: string, email: string, content: string, created_at: string}[]) => void} callback
- */
-export function subscribeToNewGlobalChatMessages(callback) {
-    const chatChannel = supabase.channel('global_chat_messages');
+export async function subscribeToChatNewMessages(callback) {
+    const chatChannel = supabase.channel('global_chat');
 
     chatChannel.on(
         'postgres_changes',
         {
-            event: 'INSERT',
-            table: 'global_chat_messages',
             schema: 'public',
+            table: 'chat_messages',
+            event: 'INSERT',
         },
-        payload => {
-            callback(payload.new);
+        async (data) => {
+            console.log("¡Nuevo mensaje insertado! ID:", data.new.id);
+
+            const { data: fullMessage, error } = await supabase
+                .from('chat_messages')
+                .select(`
+          id,
+          message,
+          created_at,
+          user_profile_id,
+          user_profiles (
+            id,
+            full_name,
+            email,
+            biography,
+            career
+          )
+        `)
+                .eq('id', data.new.id)
+                .single();
+
+            if (error) {
+                console.error('[global-chat.js] Error al obtener mensaje con perfil:', error);
+                return;
+            }
+
+            callback(fullMessage);
         }
     );
 
     chatChannel.subscribe();
+}
+
+export async function sendChatMessage({ message, user_id }) {
+  
+    if (!user_id) throw new Error("El user_id es obligatorio.");
+
+  // Obtener el profile
+  const { data: profile, error: profileError } = await supabase
+    .from('user_profiles')
+    .select('id')
+    .eq('id', user_id)
+    .single();
+
+  if (profileError || !profile) {
+    console.error("[sendChatMessage] No se encontró el perfil:", profileError);
+    throw new Error("No se pudo obtener el perfil del usuario.");
+  }
+
+  // Guardar mensaje
+  const { error: insertMsgError } = await supabase
+    .from('chat_messages')
+    .insert({
+      message,
+      user_profile_id: profile.id
+    });
+
+  if (insertMsgError) {
+    console.error("[sendChatMessage] Error al guardar el mensaje:", insertMsgError);
+    throw new Error(insertMsgError.message);
+  }
 }

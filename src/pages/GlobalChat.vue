@@ -1,5 +1,6 @@
 <script>
-import { fetchLastGlobalChatMessages, sendGlobalChatMessage, subscribeToNewGlobalChatMessages } from '../services/global-chat';
+import { subscribeToAuthStateChanges } from '../services/auth';
+import { getLastChatMessages, sendChatMessage, subscribeToChatNewMessages } from '../services/global-chat';
 
 export default {
     name: 'GlobalChat',
@@ -8,27 +9,38 @@ export default {
         return {
             messages: [],
             newMessage: {
-                email: '',
-                content: '',
+                message: '',
+            },
+            user: {
+                id: null,
+                email: null,
+                full_name: null,
+                biography: null,
+                career: null
             }
         }
     },
     methods: {
         async handleSubmit() {
+            console.log(this.user.id);
             try {
-                await sendGlobalChatMessage({
-                    email: this.newMessage.email,
-                    content: this.newMessage.content,
+                await sendChatMessage({
+                    message: this.newMessage.message,
+                    user_id: this.user.id
                 });
+
+                this.newMessage.message = '';
+
             } catch (error) {
-
+                console.error("[GlobalChat.vue sendMessage] Error al enviar el mensaje: ", error);
             }
-
-            this.newMessage.content = '';
         }
     },
     async mounted() {
-        subscribeToNewGlobalChatMessages(async newMessage => {
+        subscribeToAuthStateChanges(newUser => this.user = newUser);
+
+        //ver nuevos mensajes, scroll para abajo cuando se manda un nuevo mensaje
+        subscribeToChatNewMessages(async newMessage => {
             this.messages.push(newMessage);
 
             await this.$nextTick();
@@ -39,15 +51,16 @@ export default {
             });
         });
 
-        this.messages = await fetchLastGlobalChatMessages();
-
+        this.messages = (await getLastChatMessages()).reverse(); //invertir array para que los ultimos 10 mensajes, aparezcan los ultimos abajo
+    
+        //para que cuando se cargue la pagina scrollee para abajo
         await this.$nextTick();
 
+        //scroll automatico al final del chat
         this.$refs.messagesContainer.scrollTo({
             top: this.$refs.messagesContainer.scrollHeight,
             behavior: "smooth"
         });
-
     }
 }
 </script>
@@ -73,8 +86,8 @@ export default {
                 <ol class="flex flex-col items-start gap-4 p-4">
                     <li v-for="message in messages" :key="message.id"
                         class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
-                        <p class="mb-1"><span class="font-bold text-[#348534]">{{ message.email }}</span> dijo:</p>
-                        <p class="mb-1">{{ message.content }}</p>
+                        <p class="mb-1"><span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span> dijo:</p>
+                        <p class="mb-1">{{ message.message }}</p>
                         <p class="text-sm text-gray-800">{{ message.created_at }}</p>
                     </li>
                 </ol>
@@ -82,19 +95,14 @@ export default {
         </section>
 
         <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
-            <h3 class="sr-only">Enviar un mensaje</h3>
+            <h3 class="text-xl font-semibold text-[#348534] mb-5">Enviar un mensaje</h3>
             <form action="#" @submit.prevent="handleSubmit">
+
                 <div class="mb-4">
-                    <label for="email" class="sr-only block mb-1">Email</label>
-                    <input placeholder="Email *" type="email" id="email"
-                        class="w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
-                        v-model="newMessage.email">
-                </div>
-                <div class="mb-4">
-                    <label for="content" class="sr-only block mb-1">Mensaje</label>
-                    <textarea placeholder="Mensaje *" id="content"
+                    <label for="message" class="sr-only block mb-1">Mensaje</label>
+                    <textarea placeholder="Mensaje *" id="message"
                         class="resize-none w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
-                        v-model="newMessage.content"></textarea>
+                        v-model="newMessage.message"></textarea>
                 </div>
                 <button type="submit" class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
                     bg-[#348534] hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
@@ -118,5 +126,4 @@ input::placeholder {
 textarea::placeholder {
     color: #348534;
 }
-
 </style>

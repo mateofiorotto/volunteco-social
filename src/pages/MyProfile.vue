@@ -9,8 +9,8 @@ export default {
             user: {
                 id: null,
                 email: null,
-                display_name: null,
-                bio: null,
+                full_name: null,
+                biography: null,
                 career: null,
             },
         }
@@ -22,16 +22,12 @@ export default {
 </script>
 
 <template>
-    <h2>Mi Perfil</h2>
+    <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Mi Perfil</h2>
 
-    <div class="ms-4 my-8 text-gray-700 italic">{{ user.bio ?? 'Sin especificar...' }}</div>
+    <p>{{ user.full_name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.career ?? 'Sin especificar...' }}</p>
+    <p>{{ user.biography ?? 'Sin especificar...' }}</p>
 
-    <dl>
-        <dt class="mb-1 font-bold">Email</dt>
-        <dd class="mb-2">{{ user.email }}</dd>
-        <dt class="mb-1 font-bold">Nombre</dt>
-        <dd class="mb-2">{{ user.display_name ?? 'Sin especificar...' }}</dd>
-        <dt class="mb-1 font-bold">Carrera</dt>
-        <dd class="mb-2">{{ user.career ?? 'Sin especificar...' }}</dd>
-    </dl>
+    <a class="text-blue-600" href="#">cambiar datos (contraseña, bio y carrera. Email y nombre no se pueden cambiar)</a>
 </template>

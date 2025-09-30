@@ -50,15 +50,14 @@ Desarrollar una red social de tema libre:
 - Correcto uso de las herramientas implementadas
 
 ### Por hacer
-- alertas (?)
-- logica de posts (similar al chat)
+- alertas y manejo de errores
+- pagina y logica de posts (similar al chat)
 - pagina de usuarios individuales
-- pagina de editar perfil
-- cambiar db a brasil
-- Nombre, biografia, carrera en registro
+- Estilos de pagina de perfil individual y pagina de editar perfil
 - JSdoc
-- manejar errores
-- agregar datos perfil a register
 - organizar codigo y comentar
 - validaciones form en tiempo real. Manejo, reinicio, etc.. (?)
-- cambiar chat --> sacar el email del input y tomar la id del usuario cuando se manda. Crear la relacion de mensajes con usuarios para poder sacar el mail
+- revisar cuando se actualiza en rutas privadas redirige al login
+- register responsive
+- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si
+

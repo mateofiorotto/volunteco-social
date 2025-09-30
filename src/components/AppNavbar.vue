@@ -89,7 +89,7 @@ export default {
                         <RouterLink to="/mi-perfil"
                             class="block py-3 px-3 text-[#348534] hover:text-green-600 transition duration-300 ease-in-out rounded-sm 
                             md:hover:bg-transparent md:hover:text-green-600 md:text-[#348534] md:p-0 text-[#348534] hover:bg-green-500 hover:text-white"
-                            aria-current="page">{{ user.email }}asd</RouterLink>
+                            aria-current="page">{{ user.email }}</RouterLink>
                     </li>
                     <li>
                         <form action="#" @submit.prevent="handleLogout">
