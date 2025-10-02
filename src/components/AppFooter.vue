@@ -52,7 +52,7 @@ export default {
             </div>
             <div
                 class="flex flex-col md:flex-row justify-center md:justify-between border-t mt-5 mb-5 md:mb-0 pt-0 md:pt-7">
-                <p class="text-xl text-center md:text-left py-10 md:py-0 pb-7">Cuidemos al medioambiente.</p>
+                <p class="text-xl text-center md:text-left py-10 md:py-0 pb-7">Cuidemos al medioambiente. Bento Herminia y Fiorotto Mateo.</p>
                 <ul class="redes flex flex-row justify-center gap-7 text-3xl">
                     <li class="red-social">
                         <a href="https://www.instagram.com/volunteco" target="_blank" rel="noopener noreferrer"
@@ -75,6 +75,14 @@ export default {
                             class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
                             <i class="fa-brands fa-x-twitter">
                                 <span class="sr-only">icono de Twitter</span>
+                            </i>
+                        </a>
+                    </li>
+                    <li class="red-social">
+                        <a href="https://github.com/mateofiorotto/volunteco-social" target="_blank" rel="noopener noreferrer"
+                            class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                            <i class="fa-brands fa-github">
+                                <span class="sr-only">icono de Github</span>
                             </i>
                         </a>
                     </li>

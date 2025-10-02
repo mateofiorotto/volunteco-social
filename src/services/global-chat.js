@@ -79,7 +79,7 @@ export async function subscribeToChatNewMessages(callback) {
                 .single();
 
             if (error) {
-                console.error('[global-chat.js] Error al obtener mensaje con perfil:', error);
+                console.error('[global-chat.js] Error ', error);
                 return;
             }
 
@@ -90,9 +90,12 @@ export async function subscribeToChatNewMessages(callback) {
     chatChannel.subscribe();
 }
 
-export async function sendChatMessage({ message, user_id }) {
+export async function sendChatMessage(message, user_id) {
   
-    if (!user_id) throw new Error("El user_id es obligatorio.");
+    if (!user_id) throw new Error("El user id es obligatorio.");
+
+    //si esta vacio no se envia el mensaje
+    if (!message) return;
 
   // Obtener el profile
   const { data: profile, error: profileError } = await supabase
@@ -107,15 +110,15 @@ export async function sendChatMessage({ message, user_id }) {
   }
 
   // Guardar mensaje
-  const { error: insertMsgError } = await supabase
+  const { error: errorMsg } = await supabase
     .from('chat_messages')
     .insert({
       message,
       user_profile_id: profile.id
     });
 
-  if (insertMsgError) {
-    console.error("[sendChatMessage] Error al guardar el mensaje:", insertMsgError);
-    throw new Error(insertMsgError.message);
+  if (errorMsg) {
+    console.error("[sendChatMessage] Error al guardar el mensaje:", errorMsg);
+    throw new Error(errorMsg.message);
   }
 }

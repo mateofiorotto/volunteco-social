@@ -6,6 +6,7 @@ import Posts from "../pages/Posts.vue";
 import Register from "../pages/Register.vue";
 import NotFound from "../pages/NotFound.vue";
 import MyProfile from "../pages/MyProfile.vue";
+import UserProfile from "../pages/UserProfile.vue";
 import { subscribeToAuthStateChanges } from "../services/auth";
 
 const routes = [
@@ -13,6 +14,7 @@ const routes = [
     { path: '/chat',                                component: GlobalChat,      meta: { requiresAuth: true, }, },
     { path: '/mi-perfil',                           component: MyProfile,       meta: { requiresAuth: true, }, },
     { path: '/posteos',                             component: Posts,           meta: { requiresAuth: true, }, },
+    { path: '/perfil/:id',                          component: UserProfile,     meta: { requiresAuth: true, }, },
     { path: '/iniciar-sesion',                      component: Login, },
     { path: '/registrarse',                         component: Register, },
     { path: '/:notFound',                           component: NotFound, },

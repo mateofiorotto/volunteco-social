@@ -11,10 +11,10 @@ export async function addUserProfile(data) {
         .insert({
             ...data
         });
-    
-    if(error) {
+
+    if (error) {
         console.error('[user-profile.js addUserProfile] No se pudo crear el perfi: ', error);
-        
+
         throw new Error('No se pudo crear el perfil:' + error);
     }
 }
@@ -28,12 +28,12 @@ export async function addUserProfile(data) {
 export async function updateUserProfile(id, data) {
     const { error } = await supabase
         .from('user_profiles')
-        .update({...data})
+        .update({ ...data })
         .eq('id', id);
-    
-    if(error) {
+
+    if (error) {
         console.error('[user-profile.js updateUserProfile] No se pudo editar el perfil: ', error);
-        
+
         throw new Error('No se pudo editar el perfil:' + error);
     }
 }
@@ -50,11 +50,41 @@ export async function getUserProfileByPK(id) {
         .select()
         .eq('id', id);
 
-    if(error) {
+    if (error) {
         console.error('[user-profile.js getUserProfileByPK] No se pudo traer el perfil, ya que hay uno o más errores en el valor recibido.', error);
-        
+
         throw new Error('No se pudo traer el perfil, ya que hay uno o más errores en el valor recibido.' + error);
     }
 
     return data[0];
+}
+
+/**
+ * Trae todas las publicaciones de un usuario.
+ * @param {string} userProfileId
+ */
+export async function getPostsByUser(userProfileId) {
+    const { data, error } = await supabase
+        .from("posts")
+        .select(
+            `
+      *,
+      user_profiles (
+        id,
+        full_name
+      )
+    `
+        )
+        .eq("user_profile_id", userProfileId)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(
+            "[user-profile.js getPostsByUser] Error al traer publicaciones:",
+            error
+        );
+        throw new Error(error.message);
+    }
+
+    return data;
 }

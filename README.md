@@ -50,14 +50,32 @@ Desarrollar una red social de tema libre:
 - Correcto uso de las herramientas implementadas
 
 ### Por hacer
-- alertas y manejo de errores
-- pagina y logica de posts (similar al chat)
-- pagina de usuarios individuales
-- Estilos de pagina de perfil individual y pagina de editar perfil
-- JSdoc
-- organizar codigo y comentar
-- validaciones form en tiempo real. Manejo, reinicio, etc.. (?)
-- revisar cuando se actualiza en rutas privadas redirige al login
-- register responsive
-- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si
 
+Cosas sencillas:
+- JSdoc
+- organizar codigo y comentar. Revisar codigo (userprofile, globalchat, myprofile)
+- register responsive
+- Sacar "flash"
+- arreglar estilos post btn (ocupa el ancho)
+- cambiar nombre a algunos metodos (ojo imports)
+- loading.. (componente, se utiliza muchas veces)
+- Check semantica html
+- alertas swal2
+- formatear fechas
+
+Cosas mas trabajosas:
+- alertas y manejo de errores
+- pagina de usuarios individuales
+- paginar de editar mi perfil
+- deletes (posts). Confirmar con modal o algo
+- Gc
+- Responsives
+- feedback form
+
+Otros:
+- revisar cuando se actualiza en rutas privadas redirige al login
+- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si. Lo mismo para posts.
+
+---
+
+commit Hoy: logica posts, perfil de otros usuarios.

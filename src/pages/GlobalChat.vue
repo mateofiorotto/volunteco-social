@@ -8,9 +8,7 @@ export default {
     data() {
         return {
             messages: [],
-            newMessage: {
-                message: '',
-            },
+            message: '',
             user: {
                 id: null,
                 email: null,
@@ -21,16 +19,12 @@ export default {
         }
     },
     methods: {
-        async handleSubmit() {
-            console.log(this.user.id);
+        async sendMessage() {
+            //console.log(this.user.id);
             try {
-                await sendChatMessage({
-                    message: this.newMessage.message,
-                    user_id: this.user.id
-                });
+                await sendChatMessage(this.message, this.user.id);
 
-                this.newMessage.message = '';
-
+                this.message = '';
             } catch (error) {
                 console.error("[GlobalChat.vue sendMessage] Error al enviar el mensaje: ", error);
             }
@@ -40,8 +34,8 @@ export default {
         subscribeToAuthStateChanges(newUser => this.user = newUser);
 
         //ver nuevos mensajes, scroll para abajo cuando se manda un nuevo mensaje
-        subscribeToChatNewMessages(async newMessage => {
-            this.messages.push(newMessage);
+        subscribeToChatNewMessages(async message => {
+            this.messages.push(message);
 
             await this.$nextTick();
 
@@ -86,7 +80,7 @@ export default {
                 <ol class="flex flex-col items-start gap-4 p-4">
                     <li v-for="message in messages" :key="message.id"
                         class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
-                        <p class="mb-1"><span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span> dijo:</p>
+                        <RouterLink :to="`/perfil/${message.user_profiles.id}`" class="mb-1"><span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span> dijo:</RouterLink>
                         <p class="mb-1">{{ message.message }}</p>
                         <p class="text-sm text-gray-800">{{ message.created_at }}</p>
                     </li>
@@ -96,13 +90,13 @@ export default {
 
         <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
             <h3 class="text-xl font-semibold text-[#348534] mb-5">Enviar un mensaje</h3>
-            <form action="#" @submit.prevent="handleSubmit">
+            <form action="#" @submit.prevent="sendMessage">
 
                 <div class="mb-4">
                     <label for="message" class="sr-only block mb-1">Mensaje</label>
                     <textarea placeholder="Mensaje *" id="message"
                         class="resize-none w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
-                        v-model="newMessage.message"></textarea>
+                        v-model="message"></textarea>
                 </div>
                 <button type="submit" class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
                     bg-[#348534] hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
