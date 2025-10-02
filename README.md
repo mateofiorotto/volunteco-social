@@ -64,17 +64,18 @@ Cosas sencillas:
 - formatear fechas
 
 Cosas mas trabajosas:
-- alertas y manejo de errores
 - pagina de usuarios individuales
 - paginar de editar mi perfil
 - deletes (posts). Confirmar con modal o algo
 - Gc
 - Responsives
+
+Opcionales (suman):
+- alertas y manejo de errores
 - feedback form
 
 Otros:
-- revisar cuando se actualiza en rutas privadas redirige al login
-- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si. Lo mismo para posts.
+- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si. Lo mismo para posts. (Chequear GC o suscripcion ultima clase)
 
 ---
 
