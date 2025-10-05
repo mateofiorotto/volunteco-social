@@ -56,15 +56,14 @@ Cosas sencillas:
 - organizar codigo y comentar. Revisar codigo (userprofile, globalchat, myprofile)
 - register responsive
 - arreglar estilos post btn (ocupa el ancho)
-- agregar btnes banner 
-- cambiar nombre a algunos metodos (ojo imports)
+- agregar btnes banner
 - Check semantica html
 - alertas swal2
 - formatear fechas
 
 Cosas mas trabajosas:
-- pagina de usuarios individuales
-- paginar de editar mi perfil
+- pagina de usuarios individuales (estilos)
+- paginar de editar mi perfil (estilos)
 - deletes (posts). Confirmar con modal o algo
 - Responsives
 
@@ -78,9 +77,5 @@ A SOLUCIONAR:
 
 despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
 o nos vamos a otra vista (chat si funciona en primera instancia)
-
----
-
-commit Hoy: implementacion de loader. Ajustes en el chat, posteos y perfiles. Agregada desuscripcion. Agregada edicion de perfil. Varios fixes. Actualizacion H1.
 
 Cosas por hacer hoy --> modificar posts con la modificacion de chat, arreglar perfiles. Botones banner y formatear fechas
