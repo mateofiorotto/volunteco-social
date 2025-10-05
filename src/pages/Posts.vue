@@ -60,7 +60,7 @@ export default {
 </script>
 
 <template>
-    <section class="posteos px-10 lg:px-30 py-10">
+    <section data-aos="fade" class="posteos px-10 lg:px-30 py-10">
         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-[#348534]">Ultimos posteos</h2>
         <div class="crear-post">
             <form action="#" @submit.prevent="createNewPost"
@@ -82,7 +82,7 @@ export default {
                 </div>
             </template>
             <template v-else>
-                <div ref="postsContainer">
+                <div data-aos="fade" ref="postsContainer">
                     <PostCard v-for="post in posts" :key="post.id" :post="post" :user="user" />
                 </div>
             </template>

@@ -3,6 +3,7 @@ import MainLoader from '../components/MainLoader.vue';
 import { subscribeToAuthStateChanges } from '../services/auth';
 import { getLastChatMessages, sendChatMessage, subscribeToChatNewMessages } from '../services/global-chat';
 import { getUserProfileByPK } from '../services/user-profile';
+import { useDateFormat } from '@vueuse/core';
 
 let unsubscribeAuth = () => { };
 let unsubscribeChat = () => { };
@@ -34,6 +35,9 @@ export default {
 
                 throw new Error("Ocurrio un error al enviar el mensaje: " + error.message);
             }
+        },
+        formatDate(created_at) {
+            return useDateFormat(created_at, 'DD/MM/YYYY HH:mm').value
         }
     },
     async mounted() {
@@ -105,7 +109,7 @@ export default {
                                 dijo:
                             </RouterLink>
                             <p class="mb-1">{{ message.message }}</p>
-                            <p class="text-sm text-gray-800">{{ message.created_at }}</p>
+                            <p class="text-sm text-gray-800">{{ formatDate(message.created_at) }}</p>
                         </li>
                     </ol>
                 </div>

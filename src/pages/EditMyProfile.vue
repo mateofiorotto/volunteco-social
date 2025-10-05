@@ -6,8 +6,8 @@ let unsubscribeAuth = () => { };
 
 export default {
     name: 'EditMyProfile',
-    components: {MainLoader},
-    data(){
+    components: { MainLoader },
+    data() {
         return {
             updateFormData: {},
             user: {
@@ -18,15 +18,15 @@ export default {
             },
             loading: true
         }
-    }, 
+    },
     methods: {
-        async editProfile(){
+        async editProfile() {
             try {
 
                 if (!this.updateFormData.full_name) {
                     throw new Error("El campo de nombre completo es obligatorio obligatorio");
                 }
-            
+
                 await updateAuthenticatedUser(this.updateFormData);
 
                 //si el perfil se edito correctamente mandar a perfil
@@ -48,8 +48,10 @@ export default {
                 career: newUserStatus.career
             }
         });
+
+        this.loading = false;
     },
-    unmounted(){
+    unmounted() {
         unsubscribeAuth();
     }
 }
@@ -57,18 +59,28 @@ export default {
 
 <template>
     <section class="overflow-hidden px-10 lg:px-30 py-30 mi-perfil">
-        <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Actualizar perfil</h2>
+        <template v-if="loading">
+            <div class="flex w-full my-40 justify-center items-center">
+                <MainLoader />
+            </div>
+        </template>
+        <template v-else>
+            <div data-aos="fade">
+                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Actualizar perfil</h2>
 
-        <form action="#" @submit.prevent="editProfile">
-            <label class="sr-only" for="full_name">Nombre</label>
-            <input type="text" placeholder="Nombre *" v-model="updateFormData.full_name" required>
-            
-            <label class="sr-only" for="biography">Biografia</label>
-            <input type="text" placeholder="Biografia" v-model="updateFormData.biography">
-            
-            <label class="sr-only" for="career">Carrera</label>
-            <input type="text" placeholder="Carrera" v-model="updateFormData.career">
-            <button type="submit" class="self-end mt-2 px-4 py-3 bg-green-600 text-white rounded-lg">Editar</button>
-        </form>
+                <form action="#" @submit.prevent="editProfile">
+                    <label class="sr-only" for="full_name">Nombre</label>
+                    <input type="text" placeholder="Nombre *" v-model="updateFormData.full_name" required>
+
+                    <label class="sr-only" for="biography">Biografia</label>
+                    <input type="text" placeholder="Biografia" v-model="updateFormData.biography">
+
+                    <label class="sr-only" for="career">Carrera</label>
+                    <input type="text" placeholder="Carrera" v-model="updateFormData.career">
+                    <button type="submit"
+                        class="self-end mt-2 px-4 py-3 bg-green-600 text-white rounded-lg">Editar</button>
+                </form>
+            </div>
+        </template>
     </section>
 </template>

@@ -60,18 +60,21 @@ export default {
             </div>
         </template>
         <template v-else>
-            <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">{{ user.full_name }}</h2>
+            <div data-aos="fade">
+                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">{{ user.full_name }}</h2>
 
-             <p><span class="font-bold">Email:</span> {{ user.email }}</p>
-            <p><span class="font-bold">Carrera:</span> {{ user.career ? user.career : 'Sin especificar...' }}</p>
-            <p><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography : 'Sin especificar...' }}</p>
+                <p><span class="font-bold">Email:</span> {{ user.email }}</p>
+                <p><span class="font-bold">Carrera:</span> {{ user.career ? user.career : 'Sin especificar...' }}</p>
+                <p><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography : 'Sin especificar...'
+                    }}</p>
 
-            <div v-if="posts.length === 0" class="text-center text-gray-500">
-                Este usuario no tiene posts.
-            </div>
+                <div v-if="posts.length === 0" class="text-center text-gray-500">
+                    Este usuario no tiene posts.
+                </div>
 
-            <div v-else>
-                <PostCard v-for="post in posts" :key="post.id" :post="post" :user="post.user_profiles ?? {}" />
+                <div v-else>
+                    <PostCard v-for="post in posts" :key="post.id" :post="post" :user="post.user_profiles ?? {}" />
+                </div>
             </div>
         </template>
     </section>

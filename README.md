@@ -35,7 +35,7 @@ Desarrollar una red social de tema libre:
 - Pagina donde esten las publicaciones de todos los usuarios (POSTEOS)
 - Los usuarios deben poder crear publicaciones
 - Debe poderse visitar el perfil de cada usuario, desde donde se puedan ver las publicaciones del mismo
-- El perfil del usuario autenticado debe permitir administrar sus datos (nombre/contraseña)
+- El perfil del usuario autenticado debe permitir administrar sus datos
 
 ### Evaluaciones adicionales
 - Complejidad de la tarea realizada
@@ -49,17 +49,18 @@ Desarrollar una red social de tema libre:
 - Accesibilidad del sitio
 - Correcto uso de las herramientas implementadas
 
+### Como usar
+
+Por hacer...
+
 ### Por hacer
 
 Cosas sencillas:
 - JSdoc
 - organizar codigo y comentar. Revisar codigo (userprofile, globalchat, myprofile)
 - register responsive
-- arreglar estilos post btn (ocupa el ancho)
-- agregar btnes banner
+- arreglar estilos post btn (ocupa el ancho) y hover
 - Check semantica html
-- alertas swal2
-- formatear fechas
 
 Cosas mas trabajosas:
 - pagina de usuarios individuales (estilos)
@@ -67,10 +68,16 @@ Cosas mas trabajosas:
 - deletes (posts). Confirmar con modal o algo
 - Responsives
 
-Opcionales (suman):
-- alertas y manejo de errores
-- feedback form
+Otros:
+- resolver warnings
 
+Opcionales (suman):
+- feedback form
+- alertas swal2 (login, register, post, chat y edicion perfil) y manejar errores (mensajes en blanco)
+- hosting netlify
+
+- formatear fechas
+- agregar btnes banner
 ---
 
 A SOLUCIONAR:
@@ -78,4 +85,4 @@ A SOLUCIONAR:
 despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
 o nos vamos a otra vista (chat si funciona en primera instancia)
 
-Cosas por hacer hoy --> modificar posts con la modificacion de chat, arreglar perfiles. Botones banner y formatear fechas
+Cosas por hacer hoy --> formatear fechas, instalar swal2

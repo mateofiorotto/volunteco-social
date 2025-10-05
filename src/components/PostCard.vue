@@ -1,4 +1,5 @@
 <script>
+import { useDateFormat } from '@vueuse/core';
 
 export default {
     name: 'PostCard',
@@ -11,6 +12,11 @@ export default {
             type: Object,
             required: true
         } 
+    },
+    methods: {
+        formatDate(created_at) {
+            return useDateFormat(created_at, 'DD/MM/YYYY HH:mm').value
+        }
     }
 }
 
@@ -28,7 +34,7 @@ export default {
         <!-- acciones -->
         <div>
             <p class="text-[#348534] hover:text-green-600 transition-all duration-300 ease-in-out mr-4">{{
-                post.created_at }}</p>
+                formatDate(post.created_at) }}</p>
         </div>
     </article>
 </template>
