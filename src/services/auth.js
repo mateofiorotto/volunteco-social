@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import { getUserProfileByPK, updateUserProfile, addUserProfile } from "./user-profile";
+import { getUserProfileByPK, addUserProfile, updateUserProfileByPK } from "./user-profile";
 
 //objeto user
 let user = {
@@ -12,6 +12,12 @@ let user = {
 
 //definicion de array observers
 let observers = [];
+
+//obtener user desde el principio para que no se rediriga al login al recargar en una ruta protegida
+if(localStorage.getItem('user-data')){
+    user = JSON.parse(localStorage.getItem('user-data'));
+    console.log(user)
+}
 
 //carga el usuario actual
 loadCurrentUserAuthState();
@@ -39,30 +45,22 @@ async function loadCurrentUserAuthState() {
         email: data.user.email,
     });
 
-    loadCurrentUserProfile();
+    loadUserExtendedProfile();
 }
 
 /**
- * Carga el perfil extendido del usuario autenticado.
+ * Carga el perfil extendido del usuario autenticado
  */
-async function loadCurrentUserProfile() {
-    try {
-        const profile = await getUserProfileByPK(user.id);
-
-        setUser({
-            ...profile,
-        });
-    } catch (error) {
-        console.error('[auth.js loadCurrentUserProfile] Error al obtener el perfil del usuario: ', error);
-        throw error;
-    }
+async function loadUserExtendedProfile() {
+    setUser(await getUserProfileByPK(user.id));
 }
 
 /**
+ * Crea un nuevo usuario y su perfil en la base de datos
  * 
  * @param {String} email 
  * @param {String} password 
- * @param {{full_name: String, biography: String|null, career: String|null}} profileData
+ * @param {{full_name: String, biography?: String|null, career?: String|null}} profileData
  */
 export async function register(email, password, profileData) {
     const { data, error } = await supabase.auth.signUp({
@@ -100,6 +98,7 @@ export async function register(email, password, profileData) {
 }
 
 /**
+ * Inicia la sesion del usuario
  * 
  * @param {String} email 
  * @param {String} password 
@@ -120,11 +119,12 @@ export async function login(email, password) {
         email: data.user.email,
     });
 
-    loadCurrentUserProfile();
-
-    return data.user;
+    loadUserExtendedProfile();
 }
 
+/**
+ * Cierra la sesion del usuario
+ */
 export async function logout() {
     supabase.auth.signOut();
 
@@ -139,30 +139,37 @@ export async function logout() {
  * 
  * @param {{biography: string|null, career: string|null, full_name: string|null}} data 
  */
-export async function updateAuthProfile(data) {
+export async function updateAuthenticatedUser(data) {
     try {
-        await updateUserProfile(user.id, { ...data });
+        await updateUserProfileByPK(user.id, data);
+        
         setUser(data);
     } catch (error) {
-        console.error('[auth.js updateAuthProfile] Error al actualizar el perfil del usuario autenticado: ', error);
-        throw error;
+        console.error('[auth.js updateAuthenticatedProfile] Error al actualizar el perfil del usuario: ', error);
+        throw new Error(error.message);
     }
 }
 
 
 /**
+ * Implementa el observer del estado de auth
  * 
- * @param {(userState: {id: null|String, email: null|String}) => void} callback observer a adjuntar
+ * @param {(userState: {id: String, email: String}) => void} callback observer a adjuntar
  */
 export function subscribeToAuthStateChanges(callback) {
     observers.push(callback);
 
     notify(callback);
+
+    //cancelar la suscripcion
+    return () => {
+        observers = observers.filter(observer => callback !== observer);
+    }
 }
 
 /**
- * 
- * @param {(userState: {id: null|String, email: null|String}) => void} callback 
+ * notifica todos los observers registrados
+ * @param {(userState: {id: String, email: String}) => void} callback 
  */
 function notify(callback) {
     callback({
@@ -173,15 +180,30 @@ function notify(callback) {
 /**
  * Notifica a los observers del cambio del estado de auth
  * Se llama cada vez que cambiamos la var user
+ * Guarda el user en el localStorage
  */
 function notifyAll() {
     observers.forEach(notify);
 }
 
+/**
+ * Setea una copia de la info del usuario y lo guarda en el localStorage
+ * Llama al metodo para notificar a los observers
+ * 
+ * @param {*} data 
+ */
 function setUser(data) {
     user = {
         ...user,
         ...data,
     }
+
+    //guardar en el localStorage
+    if(user.id){
+        localStorage.setItem('user-data', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('user-data');
+    }
+
     notifyAll();
 }

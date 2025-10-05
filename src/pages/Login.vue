@@ -14,7 +14,7 @@ export default {
         }
     },
     methods: {
-        async handleSubmit() {
+        async loginIntoAcc() {
             try {
                 this.loading = true;
 
@@ -44,7 +44,7 @@ export default {
                         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Iniciar Sesión</h2>
                         <form 
                             action="#"
-                            @submit.prevent="handleSubmit"
+                            @submit.prevent="loginIntoAcc"
                         >
                             <div>
                                 <div class="flex flex-col">

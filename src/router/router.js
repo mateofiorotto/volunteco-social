@@ -7,18 +7,62 @@ import Register from "../pages/Register.vue";
 import NotFound from "../pages/NotFound.vue";
 import MyProfile from "../pages/MyProfile.vue";
 import UserProfile from "../pages/UserProfile.vue";
+import EditMyProfile from "../pages/EditMyProfile.vue";
 import { subscribeToAuthStateChanges } from "../services/auth";
 
 const routes = [
-    { path: '/',                                    component: Home, },
-    { path: '/chat',                                component: GlobalChat,      meta: { requiresAuth: true, }, },
-    { path: '/mi-perfil',                           component: MyProfile,       meta: { requiresAuth: true, }, },
-    { path: '/posteos',                             component: Posts,           meta: { requiresAuth: true, }, },
-    { path: '/perfil/:id',                          component: UserProfile,     meta: { requiresAuth: true, }, },
-    { path: '/iniciar-sesion',                      component: Login, },
-    { path: '/registrarse',                         component: Register, },
-    { path: '/:notFound',                           component: NotFound, },
+    {
+        path: '/',
+        component: Home,
+        name: 'Inicio',
+    },
+    {
+        path: '/chat',
+        component: GlobalChat,
+        name: 'Chat',
+        meta: { requiresAuth: true, },
+    },
+    {
+        path: '/mi-perfil',
+        component: MyProfile,
+        name: 'Mi perfil',
+        meta: { requiresAuth: true, },
+    },
+    {
+        path: '/mi-perfil/cambiar-datos',
+        component: EditMyProfile,
+        name: 'Cambiar datos',
+        meta: { requiresAuth: true, },
+    },
+    {
+        path: '/posteos',
+        component: Posts,
+        name: 'Posteos',
+        meta: { requiresAuth: true, },
+    },
+    {
+        path: '/perfil/:id',
+        component: UserProfile,
+        name: 'Perfil de usuario',
+        meta: { requiresAuth: true, },
+    },
+    {
+        path: '/iniciar-sesion',
+        component: Login,
+        name: 'Iniciar sesion',
+    },
+    {
+        path: '/registrarse',
+        component: Register,
+        name: 'Registrarse',
+    },
+    {
+        path: '/:notFound',
+        component: NotFound,
+        name: 'No Encontrado',
+    },
 ];
+
 const router = createRouter({
     routes,
     history: createWebHistory(),
@@ -31,7 +75,7 @@ let user = {
 subscribeToAuthStateChanges(newUserState => user = newUserState);
 
 router.beforeEach((to, from) => {
-    if(to.meta.requiresAuth && user.id === null) {
+    if (to.meta.requiresAuth && user.id === null) {
         return '/iniciar-sesion';
     }
 });

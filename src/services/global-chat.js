@@ -20,10 +20,7 @@ export async function getLastChatMessages() {
       user_profile_id,
       user_profiles (
         id,
-        full_name,
-        email,
-        biography,
-        career
+        full_name
       )
     `)
         .order('created_at', { ascending: false })
@@ -47,7 +44,7 @@ export async function getLastChatMessages() {
  * @param {(message: Object) => void} callback funcion que se ejecuta con el mensaje nuevo
  * @returns {void}
  */
-export async function subscribeToChatNewMessages(callback) {
+export function subscribeToChatNewMessages(callback) {
     const chatChannel = supabase.channel('global_chat');
 
     chatChannel.on(
@@ -57,37 +54,16 @@ export async function subscribeToChatNewMessages(callback) {
             table: 'chat_messages',
             event: 'INSERT',
         },
-        async (data) => {
-            console.log("¡Nuevo mensaje insertado! ID:", data.new.id);
-
-            const { data: fullMessage, error } = await supabase
-                .from('chat_messages')
-                .select(`
-          id,
-          message,
-          created_at,
-          user_profile_id,
-          user_profiles (
-            id,
-            full_name,
-            email,
-            biography,
-            career
-          )
-        `)
-                .eq('id', data.new.id)
-                .single();
-
-            if (error) {
-                console.error('[global-chat.js] Error ', error);
-                return;
-            }
-
-            callback(fullMessage);
+        payload => {
+            callback(payload.new);
         }
-    );
+      );
 
     chatChannel.subscribe();
+
+    return() => {
+        chatChannel.unsubscribe();
+    }
 }
 
 export async function sendChatMessage(message, user_id) {
@@ -97,24 +73,12 @@ export async function sendChatMessage(message, user_id) {
     //si esta vacio no se envia el mensaje
     if (!message) return;
 
-  // Obtener el profile
-  const { data: profile, error: profileError } = await supabase
-    .from('user_profiles')
-    .select('id')
-    .eq('id', user_id)
-    .single();
-
-  if (profileError || !profile) {
-    console.error("[sendChatMessage] No se encontró el perfil:", profileError);
-    throw new Error("No se pudo obtener el perfil del usuario.");
-  }
-
   // Guardar mensaje
   const { error: errorMsg } = await supabase
     .from('chat_messages')
     .insert({
       message,
-      user_profile_id: profile.id
+      user_profile_id: user_id
     });
 
   if (errorMsg) {

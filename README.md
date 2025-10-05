@@ -55,10 +55,9 @@ Cosas sencillas:
 - JSdoc
 - organizar codigo y comentar. Revisar codigo (userprofile, globalchat, myprofile)
 - register responsive
-- Sacar "flash"
 - arreglar estilos post btn (ocupa el ancho)
+- agregar btnes banner 
 - cambiar nombre a algunos metodos (ojo imports)
-- loading.. (componente, se utiliza muchas veces)
 - Check semantica html
 - alertas swal2
 - formatear fechas
@@ -67,16 +66,21 @@ Cosas mas trabajosas:
 - pagina de usuarios individuales
 - paginar de editar mi perfil
 - deletes (posts). Confirmar con modal o algo
-- Gc
 - Responsives
 
 Opcionales (suman):
 - alertas y manejo de errores
 - feedback form
 
-Otros:
-- luego de loguearse, al entrar al chat no se actualiza, una vez recargado si. Lo mismo para posts. (Chequear GC o suscripcion ultima clase)
+---
+
+A SOLUCIONAR:
+
+despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
+o nos vamos a otra vista (chat si funciona en primera instancia)
 
 ---
 
-commit Hoy: logica posts, perfil de otros usuarios.
+commit Hoy: implementacion de loader. Ajustes en el chat, posteos y perfiles. Agregada desuscripcion. Agregada edicion de perfil. Varios fixes. Actualizacion H1.
+
+Cosas por hacer hoy --> modificar posts con la modificacion de chat, arreglar perfiles. Botones banner y formatear fechas

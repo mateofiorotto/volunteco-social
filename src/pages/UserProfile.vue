@@ -1,54 +1,78 @@
 <script>
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
 import PostCard from "../components/PostCard.vue";
 import { getUserProfileByPK, getPostsByUser } from "../services/user-profile";
+import { subscribeToNewPostsByUser } from "../services/posts";
+import MainLoader from "../components/MainLoader.vue";
+
+let unsubscribeAuth = () => { };
+let unsubscribePosts = () => { };
+
 export default {
     name: "UserProfile",
-    components: {
-        PostCard,
+    components: { PostCard, MainLoader },
+    data() {
+        return {
+            user: {
+                id: null,
+                email: null,
+                full_name: null,
+                biography: null,
+                career: null,
+            },
+            posts: [],
+            loading: true,
+            unsubscribePosts: null,
+        };
     },
-    setup() {
-        const route = useRoute();
-        const profile = ref(null);
-        const posts = ref([]);
-        const loading = ref(true);
+    async mounted() {
+        const userId = this.$route.params.id;
 
-        onMounted(async () => {
-            const { id } = route.params;
+        //traigo datos
+        this.user = await getUserProfileByPK(userId);
 
-            try {
-                profile.value = await getUserProfileByPK(id);
-                posts.value = await getPostsByUser(id);
-            } catch (error) {
-                console.error("Error al cargar perfil o datos del usuario:", error);
-            } finally {
-                loading.value = false;
-            }
+        //traigo post
+        this.posts = await getPostsByUser(userId);
+
+        //posts nuevos en tiempo real
+        this.unsubscribePosts = subscribeToNewPostsByUser(userId, async (post) => {
+
+            const profile = await getUserProfileByPK(post.user_profile_id);
+            post.user_profiles = profile;
+
+            this.posts.unshift(post);
+
+            await this.$nextTick();
         });
 
-        return {
-            profile,
-            posts,
-        };
+        this.loading = false;
+    },
+    unmounted() {
+        this.unsubscribePosts();
     },
 };
 </script>
 
 <template>
-
     <section class="overflow-hidden px-10 lg:px-30 py-10 mi-perfil" data-aos="fade">
-        <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">{{ profile?.full_name.value }}</h2>
+        <template v-if="loading">
+            <div class="flex w-full my-40 justify-center items-center">
+                <MainLoader />
+            </div>
+        </template>
+        <template v-else>
+            <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">{{ user.full_name }}</h2>
 
-        <p>{{ profile?.email }}</p>
-        <p>{{ profile?.career ?? 'Sin especificar...' }}</p>
-        <p>{{ profile?.biography ?? 'Sin especificar...' }}</p>
+             <p><span class="font-bold">Email:</span> {{ user.email }}</p>
+            <p><span class="font-bold">Carrera:</span> {{ user.career ? user.career : 'Sin especificar...' }}</p>
+            <p><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography : 'Sin especificar...' }}</p>
 
-        <div v-if="posts.length === 0">Este usuario no tiene posts.</div>
+            <div v-if="posts.length === 0" class="text-center text-gray-500">
+                Este usuario no tiene posts.
+            </div>
 
-        <div v-else>
-            <PostCard v-for="post in posts" :key="post.id" :post="post" :user="post.user_profiles ?? {}" />
-        </div>
+            <div v-else>
+                <PostCard v-for="post in posts" :key="post.id" :post="post" :user="post.user_profiles ?? {}" />
+            </div>
+        </template>
     </section>
-
 </template>

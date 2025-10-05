@@ -19,10 +19,7 @@ export async function getLastPosts() {
       user_profile_id,
       user_profiles (
         id,
-        full_name,
-        email,
-        biography,
-        career
+        full_name
       )
     `)
         .order('created_at', { ascending: false })
@@ -42,7 +39,7 @@ export async function getLastPosts() {
  * @param {(post: object) => void} callback
  */
 export function subscribeToNewPosts(callback) {
-    const postsChannel = supabase.channel('posts_table');
+    const postsChannel = supabase.channel('posts_channel');
 
     postsChannel.on(
         'postgres_changes',
@@ -51,37 +48,46 @@ export function subscribeToNewPosts(callback) {
             table: 'posts',
             event: 'INSERT',
         },
-        async (data) => {
-            console.log("¡Nuevo post insertado! ID:", data.new.id);
+        payload => {
+            callback(payload.new);
+        }
+      );
 
-            const { data: fullPost, error } = await supabase
-                .from('posts')
-                .select(`
-          id,
-          content,
-          created_at,
-          user_profile_id,
-          user_profiles (
-            id,
-            full_name,
-            email,
-            biography,
-            career
-          )
-        `)
-                .eq('id', data.new.id)
-                .single();
+    postsChannel.subscribe();
 
-            if (error) {
-                console.error('[global-chat.js] Error ', error);
-                return;
-            }
+    return() => {
+        postsChannel.unsubscribe();
+    }
+}
 
-            callback(fullPost);
+/**
+ * Se suscribe a los posts de un user por id para mostrarlos en su perfil
+ * 
+ * @param {*} userId 
+ * @param {*} callback 
+ * @returns 
+ */
+export function subscribeToNewPostsByUser(userId, callback) {
+    const postsChannel = supabase.channel(`posts_channel_user_${userId}`);
+
+    postsChannel.on(
+        'postgres_changes',
+        {
+            schema: 'public',
+            table: 'posts',
+            event: 'INSERT',
+            filter: `user_profile_id=eq.${userId}`, //filtro por ID
+        },
+        payload => {
+            callback(payload.new);
         }
     );
 
     postsChannel.subscribe();
+
+    return () => {
+        postsChannel.unsubscribe();
+    };
 }
 
 /**
@@ -96,22 +102,11 @@ export async function createPost(content, user_id) {
 
     if (!content) return;
 
-    const { data: profile, error: profileError } = await supabase
-        .from('user_profiles')
-        .select('id')
-        .eq('id', user_id)
-        .single();
-
-    if (profileError || !profile) {
-        console.error("[sendChatMessage] No se encontró el perfil:", profileError);
-        throw new Error("No se pudo obtener el perfil del usuario.");
-    }
-
     const { error: errorMsg } = await supabase
         .from('posts')
         .insert({
             content,
-            user_profile_id: profile.id
+            user_profile_id: user_id
         })
 
     if (errorMsg) {

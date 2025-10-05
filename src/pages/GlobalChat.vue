@@ -1,20 +1,23 @@
 <script>
+import MainLoader from '../components/MainLoader.vue';
 import { subscribeToAuthStateChanges } from '../services/auth';
 import { getLastChatMessages, sendChatMessage, subscribeToChatNewMessages } from '../services/global-chat';
+import { getUserProfileByPK } from '../services/user-profile';
+
+let unsubscribeAuth = () => { };
+let unsubscribeChat = () => { };
 
 export default {
     name: 'GlobalChat',
-    components: {},
+    components: { MainLoader },
     data() {
         return {
+            loading: true,
             messages: [],
             message: '',
             user: {
                 id: null,
-                email: null,
-                full_name: null,
-                biography: null,
-                career: null
+                full_name: null
             }
         }
     },
@@ -25,16 +28,24 @@ export default {
                 await sendChatMessage(this.message, this.user.id);
 
                 this.message = '';
+
             } catch (error) {
                 console.error("[GlobalChat.vue sendMessage] Error al enviar el mensaje: ", error);
+
+                throw new Error("Ocurrio un error al enviar el mensaje: " + error.message);
             }
         }
     },
     async mounted() {
-        subscribeToAuthStateChanges(newUser => this.user = newUser);
 
-        //ver nuevos mensajes, scroll para abajo cuando se manda un nuevo mensaje
-        subscribeToChatNewMessages(async message => {
+        unsubscribeAuth = subscribeToAuthStateChanges(userStatus => this.user = userStatus);
+
+        unsubscribeChat = subscribeToChatNewMessages(async message => {
+
+            //obtener perfil para mostrar en el chat sin recargar
+            const profile = await getUserProfileByPK(message.user_profile_id);
+            message.user_profiles = profile;
+
             this.messages.push(message);
 
             await this.$nextTick();
@@ -43,10 +54,13 @@ export default {
                 top: this.$refs.messagesContainer.scrollHeight,
                 behavior: "smooth"
             });
+
         });
 
         this.messages = (await getLastChatMessages()).reverse(); //invertir array para que los ultimos 10 mensajes, aparezcan los ultimos abajo
-    
+
+        this.loading = false;
+
         //para que cuando se cargue la pagina scrollee para abajo
         await this.$nextTick();
 
@@ -55,7 +69,11 @@ export default {
             top: this.$refs.messagesContainer.scrollHeight,
             behavior: "smooth"
         });
-    }
+    },
+    unmounted() {
+        unsubscribeAuth();
+        unsubscribeChat();
+    },
 }
 </script>
 
@@ -63,6 +81,7 @@ export default {
     <section data-aos="fade"
         class="px-10 md:px-20 lg:px-30 mt-5 mb-5 h-[95vh] lg:h-[80vh] chat-global flex flex-col lg:flex-row justify-center gap-10">
         <h2 class="hidden">Chat global</h2>
+
         <section
             class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-[#348534] border-1 border-t-0 rounded w-full lg:w-9/12">
             <div
@@ -74,18 +93,28 @@ export default {
                 </svg>
                 <h3>Chat Global</h3>
             </div>
-            <div class="overflow-y-auto h-[80%]" ref="messagesContainer">
-                <h4 class="sr-only">Lista de mensajes</h4>
+            <template v-if="!loading">
+                <div class="overflow-y-auto h-[80%]" ref="messagesContainer">
+                    <h4 class="sr-only">Lista de mensajes</h4>
 
-                <ol class="flex flex-col items-start gap-4 p-4">
-                    <li v-for="message in messages" :key="message.id"
-                        class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
-                        <RouterLink :to="`/perfil/${message.user_profiles.id}`" class="mb-1"><span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span> dijo:</RouterLink>
-                        <p class="mb-1">{{ message.message }}</p>
-                        <p class="text-sm text-gray-800">{{ message.created_at }}</p>
-                    </li>
-                </ol>
-            </div>
+                    <ol class="flex flex-col items-start gap-4 p-4">
+                        <li v-for="message in messages" :key="message.id"
+                            class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
+                            <RouterLink v-if="message.user_profiles" :to="`/perfil/${message.id}`" class="mb-1">
+                                <span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span>
+                                dijo:
+                            </RouterLink>
+                            <p class="mb-1">{{ message.message }}</p>
+                            <p class="text-sm text-gray-800">{{ message.created_at }}</p>
+                        </li>
+                    </ol>
+                </div>
+            </template>
+            <template v-else>
+                <div class="flex w-full md:h-[25vh] lg:h-[50vh] justify-center items-center">
+                    <MainLoader />
+                </div>
+            </template>
         </section>
 
         <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">

@@ -1,0 +1,74 @@
+<script>
+import MainLoader from '../components/MainLoader.vue';
+import { subscribeToAuthStateChanges, updateAuthenticatedUser } from '../services/auth';
+
+let unsubscribeAuth = () => { };
+
+export default {
+    name: 'EditMyProfile',
+    components: {MainLoader},
+    data(){
+        return {
+            updateFormData: {},
+            user: {
+                //estos datos solo se podran cambiar (mail y contra no por ahora no)
+                full_name: null,
+                biography: null,
+                career: null
+            },
+            loading: true
+        }
+    }, 
+    methods: {
+        async editProfile(){
+            try {
+
+                if (!this.updateFormData.full_name) {
+                    throw new Error("El campo de nombre completo es obligatorio obligatorio");
+                }
+            
+                await updateAuthenticatedUser(this.updateFormData);
+
+                //si el perfil se edito correctamente mandar a perfil
+                this.$router.push('/mi-perfil');
+            } catch (error) {
+                console.error("[EditMyProfile.vue sendMessage] Error al editar perfil: ", error);
+
+                throw new Error("Ocurrio un error al editar el perfil: " + error.message);
+            }
+        }
+    },
+    mounted() {
+        //cargar datos al form
+        unsubscribeAuth = subscribeToAuthStateChanges(newUserStatus => {
+
+            this.updateFormData = {
+                full_name: newUserStatus.full_name,
+                biography: newUserStatus.biography,
+                career: newUserStatus.career
+            }
+        });
+    },
+    unmounted(){
+        unsubscribeAuth();
+    }
+}
+</script>
+
+<template>
+    <section class="overflow-hidden px-10 lg:px-30 py-30 mi-perfil">
+        <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Actualizar perfil</h2>
+
+        <form action="#" @submit.prevent="editProfile">
+            <label class="sr-only" for="full_name">Nombre</label>
+            <input type="text" placeholder="Nombre *" v-model="updateFormData.full_name" required>
+            
+            <label class="sr-only" for="biography">Biografia</label>
+            <input type="text" placeholder="Biografia" v-model="updateFormData.biography">
+            
+            <label class="sr-only" for="career">Carrera</label>
+            <input type="text" placeholder="Carrera" v-model="updateFormData.career">
+            <button type="submit" class="self-end mt-2 px-4 py-3 bg-green-600 text-white rounded-lg">Editar</button>
+        </form>
+    </section>
+</template>

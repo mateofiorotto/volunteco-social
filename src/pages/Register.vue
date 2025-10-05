@@ -17,7 +17,7 @@ export default {
         }
     },
     methods: {
-        async handleSubmit() {
+        async registerAcc() {
             try {
 
                 this.loading = true;
@@ -52,7 +52,7 @@ export default {
                     <div
                         class="w-full lg:w-1/2 py-10 lg:px-10 px-5 md:px-15 bg-slate-100 text-[#348534] justify-center flex flex-col">
                         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Registrate</h2>
-                        <form @submit.prevent="handleSubmit">
+                        <form action="#" @submit.prevent="registerAcc">
                             <div>
                                 <div class="flex flex-wrap">
                                     

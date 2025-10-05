@@ -3,14 +3,12 @@ import { supabase } from "./supabase";
 /**
  * Creacion del perfil de usuario con datos adicionales
  * 
- * @param {{id: string, email: string|null, full_name: string|null, biography: string|null, career: string|null}} data 
+ * @param {{id: string, email: string, full_name: string, biography?: string|null, career?: string|null}} data 
  */
 export async function addUserProfile(data) {
     const { error } = await supabase
         .from('user_profiles')
-        .insert({
-            ...data
-        });
+        .insert(data);
 
     if (error) {
         console.error('[user-profile.js addUserProfile] No se pudo crear el perfi: ', error);
@@ -20,19 +18,19 @@ export async function addUserProfile(data) {
 }
 
 /**
- * Actualizar el perfil de un usuario
+ * Actualizar el perfil de un usuario segun id
  * 
  * @param {string} id 
- * @param {{career: string|null, bio: string|null, full_name: string|null}} data 
+ * @param {{career?: string|null, biography?: string|null, full_name: string}} data 
  */
-export async function updateUserProfile(id, data) {
+export async function updateUserProfileByPK(id, data) {
     const { error } = await supabase
         .from('user_profiles')
-        .update({ ...data })
+        .update(data)
         .eq('id', id);
-
+        
     if (error) {
-        console.error('[user-profile.js updateUserProfile] No se pudo editar el perfil: ', error);
+        console.error('[user-profile.js updateUserProfileByPK] No se pudo editar el perfil: ', error);
 
         throw new Error('No se pudo editar el perfil:' + error);
     }
@@ -42,26 +40,29 @@ export async function updateUserProfile(id, data) {
  * Obtener el perfil de un usuario por su UUID
  * 
  * @param {string} id El UUID del usuario del que se quiere pedir.
- * @returns {Promise<{id: string|null, email: string|null}>}
+ * @returns {Promise<{id: string, email: string, full_name: string, biography?: string|null, career?: string|null}>}
  */
 export async function getUserProfileByPK(id) {
     const { data, error } = await supabase
         .from('user_profiles')
         .select()
-        .eq('id', id);
+        .eq('id', id)
+        .limit(1)
+        .single();
 
     if (error) {
-        console.error('[user-profile.js getUserProfileByPK] No se pudo traer el perfil, ya que hay uno o más errores en el valor recibido.', error);
+        console.error('[user-profile.js getUserProfileByPK] No se pudo traer el perfil:', error);
 
-        throw new Error('No se pudo traer el perfil, ya que hay uno o más errores en el valor recibido.' + error);
+        throw new Error(error.message);
     }
 
-    return data[0];
+    return data;
 }
 
 /**
  * Trae todas las publicaciones de un usuario.
  * @param {string} userProfileId
+ * @returns {Promise<{id: string, content: string, created_at: string, user_profile_id: string, full_name: string}>}}
  */
 export async function getPostsByUser(userProfileId) {
     const { data, error } = await supabase
