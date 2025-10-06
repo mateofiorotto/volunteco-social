@@ -53,6 +53,8 @@ Desarrollar una red social de tema libre:
 
 Por hacer...
 
+- ** Link online: ** https://volunteco.netlify.app/
+
 ### Por hacer
 
 Cosas sencillas:
@@ -77,4 +79,3 @@ o nos vamos a otra vista (chat si funciona en primera instancia)
 
 - Despues de registrarse, no trae los sig. datos: nombre, carrera y biografia y tampoco en el form de edit (al recargar si)
 
-Cosas por hacer hoy --> 
