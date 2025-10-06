@@ -47,13 +47,15 @@ export default {
         this.loading = false;
     },
     unmounted() {
-        this.unsubscribePosts();
+        unsubscribePosts();
+        unsubscribeAuth();
     },
 };
 </script>
 
 <template>
-    <section class="overflow-hidden px-10 lg:px-30 py-10 mi-perfil" data-aos="fade">
+    <section class="overflow-hidden px-10 lg:px-30 py-10 mi-perfil"
+             data-aos="fade">
         <template v-if="loading">
             <div class="flex w-full my-40 justify-center items-center">
                 <MainLoader />
@@ -66,14 +68,18 @@ export default {
                 <p><span class="font-bold">Email:</span> {{ user.email }}</p>
                 <p><span class="font-bold">Carrera:</span> {{ user.career ? user.career : 'Sin especificar...' }}</p>
                 <p><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography : 'Sin especificar...'
-                    }}</p>
+                }}</p>
 
-                <div v-if="posts.length === 0" class="text-center text-gray-500">
+                <div v-if="posts.length === 0"
+                     class="text-center text-gray-500">
                     Este usuario no tiene posts.
                 </div>
 
                 <div v-else>
-                    <PostCard v-for="post in posts" :key="post.id" :post="post" :user="post.user_profiles ?? {}" />
+                    <PostCard v-for="post in posts"
+                              :key="post.id"
+                              :post="post"
+                              :user="post.user_profiles ?? {}" />
                 </div>
             </div>
         </template>

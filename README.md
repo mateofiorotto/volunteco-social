@@ -56,33 +56,25 @@ Por hacer...
 ### Por hacer
 
 Cosas sencillas:
-- JSdoc
-- organizar codigo y comentar. Revisar codigo (userprofile, globalchat, myprofile)
-- register responsive
-- arreglar estilos post btn (ocupa el ancho) y hover
+- Check organizacion de codigo
 - Check semantica html
+- routerlink no tienes cuenta? crear, tienes cuenta? iniciar
 
 Cosas mas trabajosas:
 - pagina de usuarios individuales (estilos)
 - paginar de editar mi perfil (estilos)
-- deletes (posts). Confirmar con modal o algo
 - Responsives
 
-Otros:
-- resolver warnings
-
 Opcionales (suman):
-- feedback form
-- alertas swal2 (login, register, post, chat y edicion perfil) y manejar errores (mensajes en blanco)
 - hosting netlify
 
-- formatear fechas
-- agregar btnes banner
 ---
 
 A SOLUCIONAR:
 
-despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
+- despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
 o nos vamos a otra vista (chat si funciona en primera instancia)
 
-Cosas por hacer hoy --> formatear fechas, instalar swal2
+- Despues de registrarse, no trae los sig. datos: nombre, carrera y biografia y tampoco en el form de edit (al recargar si)
+
+Cosas por hacer hoy --> implementacion de alertas en login, register, perfil, posts y chat. Hover boton de posts. JSDoc

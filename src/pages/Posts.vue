@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         async createNewPost() {
-            if (!this.content) return;
 
             try {
                 await createPost(this.content, this.user.id);
@@ -61,18 +60,19 @@ export default {
 
 <template>
     <section data-aos="fade" class="posteos px-10 lg:px-30 py-10">
-        <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-[#348534]">Ultimos posteos</h2>
+        <h2 class="sr-only">Ultimos posteos</h2>
         <div class="crear-post">
             <form action="#" @submit.prevent="createNewPost"
-                class="flex flex-col rounded-lg border border-[#348534] focus-within:border-green-600 mb-10">
+                class="flex flex-col rounded-lg border border-[#348534] focus-within:border-green-600 mb-10 p-4">
 
                 <label for="content" class="sr-only">Contenido del post</label>
                 <textarea v-model="content" id="content" placeholder="Escribí lo que pensas..."
                     class="resize-none outline-none w-full h-30 p-3 rounded-lg"></textarea>
 
-                <button class="self-end mt-2 px-4 py-3 my-5 mx-5 bg-green-600 text-white rounded-lg" type="submit">
-                    Postear
-                </button>
+               <button type="submit"
+                            class="self-end mt-2 px-4 py-3 bg-[#348534] hover:bg-green-600 cursor-pointer text-white rounded-lg transition-all duration-300 ease-in-out">
+                        Postear
+                    </button>
             </form>
 
 
@@ -82,6 +82,7 @@ export default {
                 </div>
             </template>
             <template v-else>
+                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-[#348534]">Ultimos posteos</h2>
                 <div data-aos="fade" ref="postsContainer">
                     <PostCard v-for="post in posts" :key="post.id" :post="post" :user="user" />
                 </div>

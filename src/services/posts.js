@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-
+import Swal from 'sweetalert2';
 
 /**
  * Traer los ultimos mensajes de la tabla de los posts cronologicamente y por limite
@@ -26,11 +26,21 @@ export async function getLastPosts() {
         .limit(10);
 
     if (error) {
-        console.error('[global-chat.js getLastMessages] Error al traer los posts: ', error);
+        console.error('[posts.js getLastMessages] Error al traer los posts: ', error);
+
+        //alerta: mostramos alertas en el servicio para no repetir el codigo en los componentes (myprofile, posts, etc)
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Error al traer los posts',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
         throw error;
     }
 
-    console.log("[global-chat.js getLastMessages] Lista de los posts: ", data);
+    //console.log("[posts.js getLastMessages] Lista de los posts: ", data);
     return data;
 }
 
@@ -91,16 +101,42 @@ export function subscribeToNewPostsByUser(userId, callback) {
 }
 
 /**
- * crea una nueva publicacion y trae la publicacion recien creada incluyendo los comentarios y perfiles de usuario
+ * crea una nueva publicacion en la base de datos
  * @param {string} content
  * @param {string} userId
  * @returns {void}
  */
 export async function createPost(content, user_id) {
 
-    if (!user_id) throw new Error("El user id es obligatorio.");
+    if (!user_id) {
+        console.error("[sendChatMessage] No estas logueado/a");
 
-    if (!content) return;
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'No estas logueado/a',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error("No estas logueado/a");
+    }
+        
+
+    if (!content) {
+        console.error("[sendChatMessage] El post no puede estar vacio");
+
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'El post no puede estar vacio',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error("El post no puede estar vacio");
+    }
 
     const { error: errorMsg } = await supabase
         .from('posts')
@@ -111,6 +147,16 @@ export async function createPost(content, user_id) {
 
     if (errorMsg) {
         console.error("[sendChatMessage] Error al guardar el post:", errorMsg);
+
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: "Error al guardar el post",
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
         throw new Error(errorMsg.message);
     }
 }

@@ -9,6 +9,7 @@ import MyProfile from "../pages/MyProfile.vue";
 import UserProfile from "../pages/UserProfile.vue";
 import EditMyProfile from "../pages/EditMyProfile.vue";
 import { subscribeToAuthStateChanges } from "../services/auth";
+import Swal from 'sweetalert2';
 
 const routes = [
     {
@@ -76,6 +77,14 @@ subscribeToAuthStateChanges(newUserState => user = newUserState);
 
 router.beforeEach((to, from) => {
     if (to.meta.requiresAuth && user.id === null) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'AUTENTICATE',
+            text: 'Debes iniciar sesion/crear tu cuenta para acceder a esta sección',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
         return '/iniciar-sesion';
     }
 });

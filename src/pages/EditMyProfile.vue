@@ -23,10 +23,6 @@ export default {
         async editProfile() {
             try {
 
-                if (!this.updateFormData.full_name) {
-                    throw new Error("El campo de nombre completo es obligatorio obligatorio");
-                }
-
                 await updateAuthenticatedUser(this.updateFormData);
 
                 //si el perfil se edito correctamente mandar a perfil
@@ -34,7 +30,6 @@ export default {
             } catch (error) {
                 console.error("[EditMyProfile.vue sendMessage] Error al editar perfil: ", error);
 
-                throw new Error("Ocurrio un error al editar el perfil: " + error.message);
             }
         }
     },

@@ -1,5 +1,6 @@
 import { supabase } from "./supabase";
 import { getUserProfileByPK, addUserProfile, updateUserProfileByPK } from "./user-profile";
+import Swal from "sweetalert2";
 
 //objeto user
 let user = {
@@ -23,7 +24,7 @@ if(localStorage.getItem('user-data')){
 loadCurrentUserAuthState();
 
 /**
- * Funcion para cargar el usuario actual
+ * Funcion para cargar el usuario actual autenticado
  * 
  * @async
  * @returns {void} 
@@ -56,7 +57,7 @@ async function loadUserExtendedProfile() {
 }
 
 /**
- * Crea un nuevo usuario y su perfil en la base de datos
+ * crea un nuevo usuario y su perfil en la base de datos
  * 
  * @param {String} email 
  * @param {String} password 
@@ -69,8 +70,48 @@ export async function register(email, password, profileData) {
         
     });
 
+    if (!email || !password || !profileData.full_name) {
+        console.error('[auth.js register] Error al registrar el usuario. Datos insuficientes.');
+
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Error al registrar el usuario. Introduzca los datos requeridos.',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error('Error al registrar el usuario. Datos insuficientes.');
+    }
+
+    if (password.length < 6) {
+        console.error('[auth.js register] Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.');
+    
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error('Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.');
+    }
+
     if (error) {
         console.error('[auth.js register] Error al registrar el usuario.', error);
+
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: "Ocurrio un error al registrarse",
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
         throw new Error(error.message);
     }
 
@@ -109,8 +150,41 @@ export async function login(email, password) {
         password,
     });
 
+    if (!email || !password) {
+        console.error('[auth.js login] Error al iniciar sesion. Datos insuficientes.');
+    
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Error al iniciar sesion. Introduzca los datos requeridos.',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error('Error al iniciar sesion. Datos insuficientes.');
+    }
+
     if (error) {
-        console.error('[auth.js login] Error al iniciar sesión.', error);
+        //verificar si el error es por credenciales incorrectas u otro
+        if (error.status === 400 && error.message.includes('Invalid login credentials')) {
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'Email o contraseña incorrectos.',
+                showConfirmButton: true,
+                confirmButtonColor: '#348534',
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'Ocurrió un error al iniciar sesión.',
+                showConfirmButton: true,
+                confirmButtonColor: '#348534',
+            });
+        }
+
         throw new Error(error.message);
     }
 
