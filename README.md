@@ -77,4 +77,4 @@ o nos vamos a otra vista (chat si funciona en primera instancia)
 
 - Despues de registrarse, no trae los sig. datos: nombre, carrera y biografia y tampoco en el form de edit (al recargar si)
 
-Cosas por hacer hoy --> implementacion de alertas en login, register, perfil, posts y chat. Hover boton de posts. JSDoc
+Cosas por hacer hoy --> 
