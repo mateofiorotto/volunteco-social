@@ -8,7 +8,7 @@ export default {
 
 <template>
     <section data-aos="fade"
-             class="banner h-[85vh] bg-[url('./public/banner.jpg')] bg-cover bg-center">
+             class="banner h-[85vh] bg-[url('./banner.jpg')] bg-cover bg-center">
         <div
              class="backdrop-brightness-70 backdrop-blur-sm h-[85vh] flex justify-center flex-col align-center text-center text-white lg:px-0 md:px-20 px-10">
             <h2 data-aos="fade-down"
