@@ -22,7 +22,9 @@ export default {
 
                 await login(this.user.email, this.user.password);
 
-                this.$router.push('/mi-perfil');
+                this.$router.push('/mi-perfil').then(() => {
+                    window.location.reload();
+                });
             } catch (error) {
                 console.log(error)
                 // por hacer
@@ -47,7 +49,7 @@ export default {
                              class="w-full h-full object-cover" />
                     </div>
                     <div
-                         class="h-[82vh] w-full md:w-1/2 py-10 px-5 lg:px-10 xl:px-30 bg-slate-100 text-primary justify-center flex flex-col">
+                         class="h-[75vh] lg:h-[82vh] w-full md:w-1/2 py-10 px-5 lg:px-10 xl:px-30 bg-slate-100 text-primary justify-center flex flex-col">
                         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Iniciar Sesión</h2>
                         <form action="#"
                               @submit.prevent="loginIntoAcc">

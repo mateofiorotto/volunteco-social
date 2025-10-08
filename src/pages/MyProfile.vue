@@ -76,7 +76,7 @@ export default {
                 <p class="text-md mb-3"><span class="font-bold">Nombre:</span> {{ user.full_name }}</p>
                 <p class="text-md mb-3"><span class="font-bold">Email:</span> {{ user.email }}</p>
                 <p class="text-md mb-3"><span class="font-bold">Carrera:</span> {{ user.career ? user.career :
-                    'Sinespecificar...' }}</p>
+                    'Sin especificar...' }}</p>
                 <p class="text-md mb-3"><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography :
                     'Sin especificar...' }}</p>
 

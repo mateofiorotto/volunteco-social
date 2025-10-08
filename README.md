@@ -61,10 +61,3 @@ Desarrollar una red social de tema libre:
 ### Por hacer
 
 - Chequear Responsives
-
-- despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
-o nos vamos a otra vista (chat si funciona en primera instancia)
-
-- Despues de registrarse, no trae los sig. datos: nombre, carrera y biografia y tampoco en el form de edit (al recargar si)
-
-commit: Cambios en algunos estilos en general, semantica y organizacion chequeadas.

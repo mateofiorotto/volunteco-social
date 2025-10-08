@@ -30,7 +30,12 @@ export default {
                     career: this.user.career
                 });
 
-                this.$router.push('/mi-perfil');
+                this.$router.push('/mi-perfil').then(() => {
+
+                    window.location.reload();
+                });
+
+                
             } catch (error) {
                 console.log(error);
                 // por manejar error
