@@ -1,5 +1,6 @@
 <script>
 import { login } from '../services/auth';
+import loginImage from '../assets/login.jpg';
 
 export default {
     name: 'Login',
@@ -11,6 +12,7 @@ export default {
                 password: '',
             },
             loading: false,
+            loginImage
         }
     },
     methods: {
@@ -38,9 +40,9 @@ export default {
                 <div class="md:flex w-full">
                     <!--img-->
                     <div class="hidden md:block w-1/2">
-                        <img src="/public/login.jpeg" alt="Imagen de login" class="w-full h-full object-cover" />
+                        <img :src="loginImage" alt="Imagen de login" class="w-full h-full object-cover" />
                     </div>
-                    <div class="h-[82vh] w-full md:w-1/2 py-10 px-5 px-5 lg:px-10 xl:px-30 bg-slate-100 text-[#348534] justify-center flex flex-col">
+                    <div class="h-[82vh] w-full md:w-1/2 py-10 px-5 lg:px-10 xl:px-30 bg-slate-100 text-[#348534] justify-center flex flex-col">
                         <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Iniciar Sesión</h2>
                         <form 
                             action="#"
@@ -97,15 +99,3 @@ export default {
         </div>
     </section>
 </template>
-
-<style>
-/**placeholders */
-input::placeholder {
-    color: #348534;
-}
-
-/**sombra */
-.contenedor-principal {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.65);
-}
-</style>

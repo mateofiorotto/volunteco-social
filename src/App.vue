@@ -20,8 +20,6 @@ export default {
         <AppNavbar />
     </header>
     <main>
-        <!--H1 General para toda la web, sr-only para los lectores pero oculto para vista-->
-        <h1 class="sr-only">Volunteco Social Media | {{ routeName }}</h1>
         <RouterView />
     </main>
     <AppFooter />

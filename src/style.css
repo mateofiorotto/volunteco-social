@@ -1,7 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import 'tailwindcss';
 
-@layer components {
+@theme {
+    --font-sans: 'Noto Sans', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: "Nunito", sans-serif;
+    --color-primary: oklch(0.5593 0.1338 122.9);
+    --color-secondary: oklch(0.235 0 0);
+}
+
+@layer base {
   h1 {
-    @apply mb-4 text-3xl;
+    @apply mb-4 text-3xl font-display;
   }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+  input::placeholder {
+    @apply text-red-400;
+  }
+  input {
+    @apply text-primary px-3 py-2 border border-primary rounded-md w-full;
+    &::placeholder {
+      @apply text-red-900;
+    }
+
+  }
+  button {
+    cursor: pointer;
+  }
+
+}
+@layer components {
+  .brand {
+    display: block;
+    aspect-ratio: 751 / 155;
+    background-image: url('assets/logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 150px;
+    @media (min-width: 768px) {
+      width: 186px;
+    }
+  }
+  .navbar {
+    top: 60px;
+    z-index: 1000;
+    right: 0;
+    left: 0;
+    width: 100%;
+    @apply bg-white border-t border-secondary p-4;
+    @media (min-width: 768px) {
+      top: inherit;
+      right: inherit;
+      left: inherit;
+      width: auto;
+      border: none;
+      padding: 0;
+    }
+  }
+  .btn {
+    @apply rounded-lg cursor-pointer p-2 inline-block border;
+  }
+  .btn-primary {
+    @apply text-white bg-primary border-primary;
+  }
+  .btn-primary-outline {
+    @apply text-primary bg-white border-primary;
+  }
+
 }
