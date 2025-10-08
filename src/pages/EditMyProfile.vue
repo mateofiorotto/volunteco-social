@@ -65,7 +65,7 @@ export default {
 
                 <form action="#"
                       @submit.prevent="editProfile">
-                    <label class="sr-only"
+                    <label class="text-lg font-bold"
                            for="full_name">Nombre</label>
                     <input class="py-3 my-3"
                            type="text"
@@ -75,7 +75,7 @@ export default {
                            id="full_name"
                            required>
 
-                    <label class="sr-only"
+                    <label class="text-lg font-bold"
                            for="biography">Biografia</label>
                     <input class="py-3 my-3"
                            type="text"
@@ -84,7 +84,7 @@ export default {
                            id="biography"
                            v-model="updateFormData.biography">
 
-                    <label class="sr-only"
+                    <label class="text-lg font-bold"
                            for="career">Carrera</label>
                     <input class="py-3 my-3"
                            type="text"
