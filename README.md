@@ -51,31 +51,20 @@ Desarrollar una red social de tema libre:
 
 ### Como usar
 
-Por hacer...
+1. Clonar repositorio
+2. Crear base de datos supabase con campos correspondientes y habilitando realtime en las tablas de posts y chat
+3. Poner la supabase url y la key en un archivo .env en la raiz
+4. Levantar proyecto con "npm run dev"
 
 - ** Link online: ** https://volunteco.netlify.app/
 
 ### Por hacer
 
-Cosas sencillas:
-- Check organizacion de codigo
-- Check semantica html
-- routerlink no tienes cuenta? crear, tienes cuenta? iniciar
-
-Cosas mas trabajosas:
-- pagina de usuarios individuales (estilos)
-- paginar de editar mi perfil (estilos)
-- Responsives
-
-Opcionales (suman):
-- hosting netlify
-
----
-
-A SOLUCIONAR:
+- Chequear Responsives
 
 - despues de registrarse, solo POSTEOS no registra nuevos mensajes si no se recarga
 o nos vamos a otra vista (chat si funciona en primera instancia)
 
 - Despues de registrarse, no trae los sig. datos: nombre, carrera y biografia y tampoco en el form de edit (al recargar si)
 
+commit: Cambios en algunos estilos en general, semantica y organizacion chequeadas.

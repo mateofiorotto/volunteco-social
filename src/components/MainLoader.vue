@@ -1,5 +1,7 @@
 <template>
-  <span class="main-loader"></span>
+  <span class="main-loader"
+        role="status"
+        aria-label="Cargando"></span>
 </template>
 
 <style>
@@ -12,7 +14,7 @@
 }
 
 .main-loader::before,
-.loader::after {
+.main-loader::after {
   content: "";
   box-sizing: border-box;
   position: absolute;

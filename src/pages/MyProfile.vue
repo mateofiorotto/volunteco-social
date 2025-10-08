@@ -62,41 +62,55 @@ export default {
 </script>
 
 <template>
-    <section class="overflow-hidden px-10 lg:px-30 py-10 mi-perfil">
+    <section class="overflow-hidden px-10 lg:px-30 pt-10 pb-30 mi-perfil">
         <template v-if="loading">
-            <div class="flex w-full my-40 justify-center items-center">
+            <div class="flex w-full my-50 justify-center items-center">
                 <MainLoader />
             </div>
         </template>
         <template v-else>
             <div data-aos="fade">
 
-                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Mi Perfil</h2>
+                <h2 class="font-bold text-3xl mb-5 mt-5 uppercase text-primary">Mi Perfil</h2>
 
-                <p><span class="font-bold">Nombre:</span> {{ user.full_name }}</p>
-                <p><span class="font-bold">Email:</span> {{ user.email }}</p>
-                <p><span class="font-bold">Carrera:</span> {{ user.career ? user.career : 'Sin especificar...' }}</p>
-                <p><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography : 'Sin especificar...'
-                }}</p>
+                <p class="text-md mb-3"><span class="font-bold">Nombre:</span> {{ user.full_name }}</p>
+                <p class="text-md mb-3"><span class="font-bold">Email:</span> {{ user.email }}</p>
+                <p class="text-md mb-3"><span class="font-bold">Carrera:</span> {{ user.career ? user.career :
+                    'Sinespecificar...' }}</p>
+                <p class="text-md mb-3"><span class="font-bold">Biografía:</span> {{ user.biography ? user.biography :
+                    'Sin especificar...' }}</p>
 
                 <RouterLink to="/mi-perfil/cambiar-datos"
-                            class="text-blue-600 block mb-10"
+                            class="text-primary block mb-10 flex gap-2 text-lg align-middle items-center mt-3 hover:text-green-600 transition-all duration-300 ease-in-out"
                             href="#">
-                    Cambiar datos (contraseña, bio y carrera. Email y nombre no se pueden cambiar)
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         class="size-8">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+
+                    Cambiar datos
                 </RouterLink>
 
                 <!-- Formulario para crear post -->
                 <form action="#"
                       @submit.prevent="createNewPost"
-                      class="flex flex-col rounded-lg border border-[#348534] focus-within:border-green-600 mb-10 p-4">
+                      class="flex flex-col rounded-lg border border-primary focus-within:border-green-600 mb-10 p-4">
                     <label for="content"
                            class="sr-only">Contenido del post</label>
                     <textarea v-model="content"
                               id="content"
+                              required
+                              name="content"
                               placeholder="Escribí lo que pensas..."
                               class="resize-none outline-none w-full h-30 p-3 rounded-lg mb-2"></textarea>
                     <button type="submit"
-                            class="self-end mt-2 px-4 py-3 bg-[#348534] hover:bg-green-600 cursor-pointer text-white rounded-lg transition-all duration-300 ease-in-out">
+                            class="self-end mt-2 px-4 py-3 bg-primary py-3 px-8 text-lg font-bold text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">
                         Postear
                     </button>
                 </form>
@@ -107,11 +121,15 @@ export default {
                     No hay posts aún.
                 </div>
                 <div v-else>
-                    <h3 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-[#348534]">Mis Posts</h3>
-                    <PostCard v-for="post in posts"
-                              :key="post.id"
-                              :post="post"
-                              :user="user" />
+                    <h3 class="sr-only">Posteos</h3>
+                    <ol data-aos="fade"
+                        aria-label="Posteos"
+                        ref="postsContainer">
+                        <PostCard v-for="post in posts"
+                                  :key="post.id"
+                                  :post="post"
+                                  :user="user" />
+                    </ol>
                 </div>
             </div>
         </template>

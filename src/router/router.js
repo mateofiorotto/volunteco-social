@@ -79,7 +79,7 @@ router.beforeEach((to, from) => {
     if (to.meta.requiresAuth && user.id === null) {
         Swal.fire({
             icon: 'warning',
-            title: 'AUTHENTICATE',
+            title: 'AUTENTICATE',
             text: 'Debes iniciar sesion/crear tu cuenta para acceder a esta sección',
             showConfirmButton: true,
             confirmButtonColor: '#348534',

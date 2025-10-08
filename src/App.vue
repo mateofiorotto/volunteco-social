@@ -6,17 +6,12 @@ import AppNavbar from './components/AppNavbar.vue';
 export default {
     name: 'App',
     components: { AppNavbar, AppFooter, },
-    computed: {
-        routeName() {
-            return this.$route?.name || 'Sin nombre';
-        }
-    }
 }
 
 </script>
 
 <template>
-    <header>
+    <header class="border-b-1 border-primary">
         <AppNavbar />
     </header>
     <main>

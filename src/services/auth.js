@@ -15,7 +15,7 @@ let user = {
 let observers = [];
 
 //obtener user desde el principio para que no se rediriga al login al recargar en una ruta protegida
-if(localStorage.getItem('user-data')){
+if (localStorage.getItem('user-data')) {
     user = JSON.parse(localStorage.getItem('user-data'));
     console.log(user)
 }
@@ -67,7 +67,7 @@ export async function register(email, password, profileData) {
     const { data, error } = await supabase.auth.signUp({
         email,
         password
-        
+
     });
 
     if (!email || !password || !profileData.full_name) {
@@ -87,7 +87,7 @@ export async function register(email, password, profileData) {
 
     if (password.length < 6) {
         console.error('[auth.js register] Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.');
-    
+
         //alerta
         Swal.fire({
             icon: 'error',
@@ -152,7 +152,7 @@ export async function login(email, password) {
 
     if (!email || !password) {
         console.error('[auth.js login] Error al iniciar sesion. Datos insuficientes.');
-    
+
         //alerta
         Swal.fire({
             icon: 'error',
@@ -216,7 +216,7 @@ export async function logout() {
 export async function updateAuthenticatedUser(data) {
     try {
         await updateUserProfileByPK(user.id, data);
-        
+
         setUser(data);
     } catch (error) {
         console.error('[auth.js updateAuthenticatedProfile] Error al actualizar el perfil del usuario: ', error);
@@ -273,7 +273,7 @@ function setUser(data) {
     }
 
     //guardar en el localStorage
-    if(user.id){
+    if (user.id) {
         localStorage.setItem('user-data', JSON.stringify(user));
     } else {
         localStorage.removeItem('user-data');

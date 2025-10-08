@@ -53,7 +53,7 @@ export default {
 </script>
 
 <template>
-    <section class="overflow-hidden px-10 lg:px-30 py-30 mi-perfil">
+    <section class="overflow-hidden px-10 lg:px-30 pt-10 pb-30 mi-perfil">
         <template v-if="loading">
             <div class="flex w-full my-40 justify-center items-center">
                 <MainLoader />
@@ -61,21 +61,47 @@ export default {
         </template>
         <template v-else>
             <div data-aos="fade">
-                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Actualizar perfil</h2>
+                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-primary">Actualizar perfil</h2>
 
-                <form action="#" @submit.prevent="editProfile">
-                    <label class="sr-only" for="full_name">Nombre</label>
-                    <input type="text" placeholder="Nombre *" v-model="updateFormData.full_name" required>
+                <form action="#"
+                      @submit.prevent="editProfile">
+                    <label class="sr-only"
+                           for="full_name">Nombre</label>
+                    <input class="py-3 my-3"
+                           type="text"
+                           placeholder="Nombre *"
+                           v-model="updateFormData.full_name"
+                           name="full_name"
+                           id="full_name"
+                           required>
 
-                    <label class="sr-only" for="biography">Biografia</label>
-                    <input type="text" placeholder="Biografia" v-model="updateFormData.biography">
+                    <label class="sr-only"
+                           for="biography">Biografia</label>
+                    <input class="py-3 my-3"
+                           type="text"
+                           placeholder="Biografia"
+                           name="biography"
+                           id="biography"
+                           v-model="updateFormData.biography">
 
-                    <label class="sr-only" for="career">Carrera</label>
-                    <input type="text" placeholder="Carrera" v-model="updateFormData.career">
+                    <label class="sr-only"
+                           for="career">Carrera</label>
+                    <input class="py-3 my-3"
+                           type="text"
+                           placeholder="Carrera"
+                           name="career"
+                           id="career"
+                           v-model="updateFormData.career">
                     <button type="submit"
-                        class="self-end mt-2 px-4 py-3 bg-green-600 text-white rounded-lg">Editar</button>
+                            class="self-end mt-2 px-4 py-3 bg-primary py-3 px-8 text-lg font-bold text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">Editar</button>
                 </form>
             </div>
         </template>
     </section>
 </template>
+
+<style>
+input {
+    color: black;
+}
+</style>

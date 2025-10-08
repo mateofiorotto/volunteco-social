@@ -120,7 +120,7 @@ export async function sendChatMessage(message, user_id) {
 
   if (errorMsg) {
     console.error("[sendChatMessage] Error al guardar el mensaje:", errorMsg);
-    
+
     //alerta
     Swal.fire({
       icon: 'error',
@@ -129,7 +129,7 @@ export async function sendChatMessage(message, user_id) {
       showConfirmButton: true,
       confirmButtonColor: '#348534',
     });
-    
+
     throw new Error(errorMsg.message);
   }
 }

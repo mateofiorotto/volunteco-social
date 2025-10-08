@@ -87,9 +87,9 @@ export default {
         <h2 class="hidden">Chat global</h2>
 
         <section
-                 class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-[#348534] border-1 border-t-0 rounded w-full lg:w-9/12">
+                 class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-primary border-1 border-t-0 rounded w-full lg:w-9/12">
             <div
-                 class="sticky top-0 mt-1 bg-[#348534] p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
+                 class="sticky top-0 mt-1 bg-primary p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none"
                      viewBox="0 0 24 24"
@@ -107,14 +107,17 @@ export default {
                      ref="messagesContainer">
                     <h4 class="sr-only">Lista de mensajes</h4>
 
-                    <ol class="flex flex-col items-start gap-4 p-4">
+                    <ol class="flex flex-col items-start gap-4 p-4"
+                        aria-label="chat"
+                        role="list">
                         <li v-for="message in messages"
+                            role="listitem"
                             :key="message.id"
-                            class="p-4 rounded-3xl bg-green-100 border-[#348534] break-all">
+                            class="p-4 rounded-3xl bg-green-100 border-primary break-all">
                             <RouterLink v-if="message.user_profiles"
-                                        :to="`/perfil/${message.id}`"
+                                        :to="`/perfil/${message.user_profiles.id}`"
                                         class="mb-1">
-                                <span class="font-bold text-[#348534]">{{ message.user_profiles.full_name }}</span>
+                                <span class="font-bold text-primary">{{ message.user_profiles.full_name }}</span>
                                 dijo:
                             </RouterLink>
                             <p class="mb-1">{{ message.message }}</p>
@@ -131,7 +134,7 @@ export default {
         </section>
 
         <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
-            <h3 class="text-xl font-semibold text-[#348534] mb-5">Enviar un mensaje</h3>
+            <h3 class="text-xl font-semibold text-primary mb-5">Enviar un mensaje</h3>
             <form action="#"
                   @submit.prevent="sendMessage">
 
@@ -140,12 +143,14 @@ export default {
                            class="sr-only block mb-1">Mensaje</label>
                     <textarea placeholder="Mensaje *"
                               id="message"
-                              class="resize-none w-full p-2 border-1 border-[#348534] outline-none focus:ring-1 focus:ring-[#348534] rounded"
+                              name="message"
+                              required
+                              class="resize-none w-full p-2 border-1 border-primary outline-none focus:ring-1 focus:ring-primary rounded"
                               v-model="message"></textarea>
                 </div>
                 <button type="submit"
                         class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
-                    bg-[#348534] hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
+                    bg-primary hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          fill="none"
                          viewBox="0 0 24 24"

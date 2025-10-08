@@ -61,11 +61,11 @@ export function subscribeToNewPosts(callback) {
         payload => {
             callback(payload.new);
         }
-      );
+    );
 
     postsChannel.subscribe();
 
-    return() => {
+    return () => {
         postsChannel.unsubscribe();
     }
 }
@@ -122,7 +122,7 @@ export async function createPost(content, user_id) {
 
         throw new Error("No estas logueado/a");
     }
-        
+
 
     if (!content) {
         console.error("[sendChatMessage] El post no puede estar vacio");
