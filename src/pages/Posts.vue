@@ -81,15 +81,15 @@ export default {
 <template>
     <section data-aos="fade" class="posteos">
         <div class="px-4 py-8 mx-auto w-full max-w-7xl">
-            <h2 class="font-bold text-3xl mb-5 md:mb-8">Mensajes</h2>
+            <h2 class="font-bold text-3xl mb-5 md:mb-8">Publicaciones</h2>
             <div class="flex flex-col md:flex-row-reverse justify-between gap-7 md:gap-20 mb-10">
                 <div class="basis-2/5">
-                    <h3 class="font-bold text-2xl mb-5">Mensaje nuevo</h3>
-                    <div class="crear-post bg-light border rounded-2xl p-4 mb-8">
+                    <h3 class="font-bold text-2xl mb-5">Nueva publicación</h3>
+                    <div class="crear-post bg-light border rounded-2xl p-4 mb-1">
                         <form action="#"
                             @submit.prevent="createNewPost">
                             
-                            <label for="content" class="block mb-3">Mensaje nuevo:</label>
+                            <label for="content" class="block mb-3">Nueva publicación:</label>
                             <textarea v-model="content"
                                     id="content"
                                     required
@@ -113,7 +113,7 @@ export default {
                         </div>
                     </template>
                     <template v-else>
-                        <h3 class="font-bold text-2xl mb-5">Ultimos mensajes</h3>
+                        <h3 class="sr-only">Ultimas publicaciones</h3>
                         <ol data-aos="fade"
                             aria-label="Posteos"
                             ref="postsContainer">

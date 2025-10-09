@@ -34,7 +34,7 @@ export async function getLastPosts() {
             title: 'ERROR',
             text: 'Error al traer los posts',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw error;
@@ -117,7 +117,7 @@ export async function createPost(content, user_id) {
             title: 'ERROR',
             text: 'No estas logueado/a',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error("No estas logueado/a");
@@ -132,7 +132,7 @@ export async function createPost(content, user_id) {
             title: 'ERROR',
             text: 'El post no puede estar vacio',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error("El post no puede estar vacio");
@@ -154,7 +154,7 @@ export async function createPost(content, user_id) {
             title: 'ERROR',
             text: "Error al guardar el post",
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error(errorMsg.message);

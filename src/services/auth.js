@@ -79,7 +79,7 @@ export async function register(email, password, profileData) {
             title: 'ERROR',
             text: 'Error al registrar el usuario. Introduzca los datos requeridos.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('Error al registrar el usuario. Datos insuficientes.');
@@ -94,7 +94,7 @@ export async function register(email, password, profileData) {
             title: 'ERROR',
             text: 'Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('Error al registrar el usuario. La contraseña debe tener al menos 6 caracteres.');
@@ -109,7 +109,7 @@ export async function register(email, password, profileData) {
             title: 'ERROR',
             text: "Ocurrio un error al registrarse",
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error(error.message);
@@ -159,7 +159,7 @@ export async function login(email, password) {
             title: 'ERROR',
             text: 'Error al iniciar sesion. Introduzca los datos requeridos.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('Error al iniciar sesion. Datos insuficientes.');
@@ -173,7 +173,7 @@ export async function login(email, password) {
                 title: 'ERROR',
                 text: 'Email o contraseña incorrectos.',
                 showConfirmButton: true,
-                confirmButtonColor: '#348534',
+                confirmButtonColor: '#66800a',
             });
         } else {
             Swal.fire({
@@ -181,7 +181,7 @@ export async function login(email, password) {
                 title: 'ERROR',
                 text: 'Ocurrió un error al iniciar sesión.',
                 showConfirmButton: true,
-                confirmButtonColor: '#348534',
+                confirmButtonColor: '#66800a',
             });
         }
 
@@ -296,7 +296,7 @@ export async function changePassword(newPassword) {
             title: 'ERROR',
             text: 'La contraseña debe tener al menos 6 caracteres y no puede ser solo espacios.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('La contraseña debe tener al menos 6 caracteres y no puede ser solo espacios.');
@@ -315,7 +315,7 @@ export async function changePassword(newPassword) {
             title: 'ERROR',
             text: 'Ocurrio un error al cambiar la contraseña.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error(error.message)

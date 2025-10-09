@@ -26,8 +26,7 @@ export default {
                     window.location.reload();
                 });
             } catch (error) {
-                console.log(error)
-                // por hacer
+                console.log("[Login.vue loginIntoAcc] Error al iniciar sesion: ", error);
             }
             this.loading = false;
         }

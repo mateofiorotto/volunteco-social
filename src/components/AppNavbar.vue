@@ -18,11 +18,6 @@ export default {
         handleLogout() {
             logout();
             this.$router.push('/iniciar-sesion');
-        },
-        handleLinkClick() {
-            if (this.open && window.innerWidth < 768) {
-                this.open = false;
-            }
         }
     },
     mounted() {
@@ -95,7 +90,7 @@ export default {
                             <li>
                                 <RouterLink to="/posteos"
                                             :class="routeName === 'Posteos' ? 'text-secondary' : 'text-primary'">
-                                    Mensajes</RouterLink>
+                                    Posteos</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/mi-perfil"

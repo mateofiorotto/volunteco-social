@@ -37,8 +37,7 @@ export default {
 
                 
             } catch (error) {
-                console.log(error);
-                // por manejar error
+                console.log("[Register.vue registerAcc] Error al registrar el usuario: ", error);
             }
             this.loading = false;
         }

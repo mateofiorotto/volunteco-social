@@ -40,7 +40,7 @@ export default {
                     title: 'Perfil editado correctamente',
                     showConfirmButton: true,
                     timer: 3000,
-                    confirmButtonColor: '#348534',
+                    confirmButtonColor: '#66800a',
                 }).then(() => {
                     this.$router.push('/mi-perfil');
                 });

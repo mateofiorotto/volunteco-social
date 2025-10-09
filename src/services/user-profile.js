@@ -34,7 +34,7 @@ export async function updateUserProfileByPK(id, data) {
             title: 'ERROR',
             text: 'Error al editar el perfil. Introduzca los datos requeridos.',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('Error al editar el perfil. Datos insuficientes.');
@@ -54,7 +54,7 @@ export async function updateUserProfileByPK(id, data) {
             title: 'ERROR',
             text: 'Ocurrio un error al editar el perfil: ' + error.message,
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         throw new Error('No se pudo editar el perfil:' + error);

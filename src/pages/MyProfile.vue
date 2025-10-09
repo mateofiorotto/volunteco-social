@@ -92,13 +92,13 @@ export default {
                             </div>
 
                             <div class="md:grid grid-cols-4 gap-1 border rounded-2xl p-4 border-gray-400">
-                                <div class="text-body/80">Nombre:</div>
-                                <div class="col-span-3 font-medium">{{ user.full_name }}</div>
-                                <div class="text-body/80">Email:</div>
-                                <div class="col-span-3 font-medium">{{ user.email }}</div>
-                                <div class="text-body/80">Profesión:</div>
-                                <div class="col-span-3 font-medium">{{ user.career ? user.career :'Sin especificar...' }}</div>
-                                <div class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography : 'Sin especificar...' }}</div>
+                                <p class="text-body/80">Nombre:</p>
+                                <p class="col-span-3 font-medium">{{ user.full_name }}</p>
+                                <p class="text-body/80">Email:</p>
+                                <p class="col-span-3 font-medium">{{ user.email }}</p>
+                                <p class="text-body/80">Profesión:</p>
+                                <p class="col-span-3 font-medium">{{ user.career ? user.career :'Sin especificar...' }}</p>
+                                <p class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography : 'Sin especificar...' }}</p>
                             </div>
 
                         </div>
@@ -107,7 +107,7 @@ export default {
                                 <!-- Formulario para crear post -->
                                 <form action="#"
                                     @submit.prevent="createNewPost">
-                                    <label for="content" class="block mb-3">Mensaje nuevo:</label>
+                                    <label for="content" class="block mb-3">Nueva publicación:</label>
                                     <textarea v-model="content"
                                             id="content"
                                             required
@@ -131,13 +131,13 @@ export default {
                     <!-- Lista de posts -->
                     <div v-if="posts.length === 0"
                         class="text-center text-gray-500">
-                        No hay mensajes aún.
+                        No hay publicaciones aún.
                     </div>
                     <div v-else>
                         <div class="md:w-3/5 w-full">
-                        <h2 class="font-bold text-3xl mb-5 md:mb-10">Mis Mensajes</h2>
+                        <h2 class="font-bold text-3xl mb-5 md:mb-10">Mis publicaciones</h2>
                         <ol data-aos="fade"
-                            aria-label="Posteos"
+                            aria-label="Publicaciones"
                             ref="postsContainer"
                             class="-ml-[12.5%]"
                             >

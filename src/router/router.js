@@ -82,7 +82,7 @@ router.beforeEach((to, from) => {
             title: 'AUTENTICATE',
             text: 'Debes iniciar sesion/crear tu cuenta para acceder a esta sección',
             showConfirmButton: true,
-            confirmButtonColor: '#348534',
+            confirmButtonColor: '#66800a',
         });
 
         return '/iniciar-sesion';

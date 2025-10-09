@@ -36,7 +36,7 @@ export async function getLastChatMessages() {
       title: 'ERROR',
       text: 'Ocurrio un error al traer los mensajes',
       showConfirmButton: true,
-      confirmButtonColor: '#348534',
+      confirmButtonColor: '#66800a',
     });
 
     throw error;
@@ -104,7 +104,7 @@ export async function sendChatMessage(message, user_id) {
       title: 'ERROR',
       text: 'El mensaje a enviar no puede estar vacio',
       showConfirmButton: true,
-      confirmButtonColor: '#348534',
+      confirmButtonColor: '#66800a',
     });
 
     throw new Error("El mensaje a enviar no puede estar vacio");
@@ -127,7 +127,7 @@ export async function sendChatMessage(message, user_id) {
       title: 'ERROR',
       text: 'Ocurrio un error al enviar el mensaje',
       showConfirmButton: true,
-      confirmButtonColor: '#348534',
+      confirmButtonColor: '#66800a',
     });
 
     throw new Error(errorMsg.message);

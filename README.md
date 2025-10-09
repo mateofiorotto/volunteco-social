@@ -56,8 +56,4 @@ Desarrollar una red social de tema libre:
 3. Poner la supabase url y la key en un archivo .env en la raiz
 4. Levantar proyecto con "npm run dev"
 
-- ** Link online: ** https://volunteco.netlify.app/
-
-### Por hacer
-
-- Chequear Responsives
+- ** Link online: ** https://volunteco.netlify.app
