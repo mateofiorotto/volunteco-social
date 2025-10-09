@@ -79,7 +79,8 @@ export default {
 </script>
 
 <template>
-    <section data-aos="fade" class="posteos">
+    <section data-aos="fade"
+             class="posteos">
         <div class="px-4 py-8 mx-auto w-full max-w-7xl">
             <h2 class="font-bold text-3xl mb-5 md:mb-8">Publicaciones</h2>
             <div class="flex flex-col md:flex-row-reverse justify-between gap-7 md:gap-20 mb-10">
@@ -87,16 +88,17 @@ export default {
                     <h3 class="font-bold text-2xl mb-5">Nueva publicación</h3>
                     <div class="crear-post bg-light border rounded-2xl p-4 mb-1">
                         <form action="#"
-                            @submit.prevent="createNewPost">
-                            
-                            <label for="content" class="block mb-3">Nueva publicación:</label>
+                              @submit.prevent="createNewPost">
+
+                            <label for="content"
+                                   class="block mb-3">Nueva publicación:</label>
                             <textarea v-model="content"
-                                    id="content"
-                                    required
-                                    name="content"
-                                    placeholder="Escribí tu mensaje..."
-                                    rows="4"
-                                    class="bg-white mb-5"></textarea>
+                                      id="content"
+                                      required
+                                      name="content"
+                                      placeholder="Escribí tu mensaje..."
+                                      rows="4"
+                                      class="bg-white mb-5"></textarea>
                             <div class="text-right">
                                 <button type="submit"
                                         class="btn btn-primary">
@@ -118,11 +120,10 @@ export default {
                             aria-label="Posteos"
                             ref="postsContainer">
                             <PostCard v-for="(post, index) in postsWithGroup"
-                                    :key="post.id"
-                                    :post="post"
-                                    :user="user"
-                                    :group-style="post.groupStyle"
-                                     />
+                                      :key="post.id"
+                                      :post="post"
+                                      :user="user"
+                                      :group-style="post.groupStyle" />
                         </ol>
                     </template>
                 </div>

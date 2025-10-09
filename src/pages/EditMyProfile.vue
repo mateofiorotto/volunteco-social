@@ -89,56 +89,52 @@ export default {
 
                     <div class="border rounded-2xl p-4 md:p-8">
                         <form action="#"
-                            @submit.prevent="editProfile">
+                              @submit.prevent="editProfile">
                             <div class="space-y-4 text-left">
                                 <div>
                                     <label class="block mb-2 text-body/80"
-                                        for="full_name">Nombre completo: *</label>
-                                    <input 
-                                        type="text"
-                                        placeholder="Nombre completo"
-                                        v-model="updateFormData.full_name"
-                                        name="full_name"
-                                        id="full_name"
-                                        required>
+                                           for="full_name">Nombre completo: *</label>
+                                    <input type="text"
+                                           placeholder="Nombre completo"
+                                           v-model="updateFormData.full_name"
+                                           name="full_name"
+                                           id="full_name"
+                                           required>
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-body/80"
-                                    for="career">Profesión:</label>
-                                    <input 
-                                        type="text"
-                                        placeholder="Profesión"
-                                        name="career"
-                                        id="career"
-                                        v-model="updateFormData.career">
+                                           for="career">Profesión:</label>
+                                    <input type="text"
+                                           placeholder="Profesión"
+                                           name="career"
+                                           id="career"
+                                           v-model="updateFormData.career">
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-body/80"
-                                        for="biography">Sobre mí:</label>
-                                    <textarea
-                                        placeholder="Biografía"
-                                        name="biography"
-                                        id="biography"
-                                        v-model="updateFormData.biography"
-                                        rows="3"></textarea>
+                                           for="biography">Sobre mí:</label>
+                                    <textarea placeholder="Biografía"
+                                              name="biography"
+                                              id="biography"
+                                              v-model="updateFormData.biography"
+                                              rows="3"></textarea>
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-body/80"
-                                for="password">Contraseña:</label>
-                                    <input
-                                        type="password"
-                                        placeholder="******"
-                                        name="password"
-                                        id="password"
-                                        v-model="updateFormData.password">
+                                           for="password">Contraseña:</label>
+                                    <input type="password"
+                                           placeholder="******"
+                                           name="password"
+                                           id="password"
+                                           v-model="updateFormData.password">
 
                                 </div>
                                 <div class="text-right">
                                     <button type="submit"
-                                    class="btn btn-primary">Guardar</button>
+                                            class="btn btn-primary">Guardar</button>
                                 </div>
                             </div>
-                            
+
                         </form>
                     </div>
 

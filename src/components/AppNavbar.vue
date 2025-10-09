@@ -62,7 +62,7 @@ export default {
                 <div :class="[open ? 'block' : 'hidden', 'navbar absolute md:relative md:block border-b-1 border-primary md:border-b-0']"
                      id="navbar-default">
                     <ul class="flex flex-col md:flex-row gap-4 md:items-center items-end justify-end"
-                    @click="open = false">
+                        @click="open = false">
                         <!--Botones de login y registro-->
                         <template v-if="user.id === null">
                             <li>
@@ -102,7 +102,7 @@ export default {
                                       @submit.prevent="handleLogout">
                                     <button type="submit"
                                             class="btn btn-primary-outline text-sm">
-                                            Logout
+                                        Logout
                                     </button>
                                 </form>
                             </li>
