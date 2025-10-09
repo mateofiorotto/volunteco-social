@@ -35,7 +35,7 @@ export default {
                     window.location.reload();
                 });
 
-                
+
             } catch (error) {
                 console.log("[Register.vue registerAcc] Error al registrar el usuario: ", error);
             }
@@ -57,68 +57,73 @@ export default {
                              alt="Hojas de un arbol"
                              class="object-cover h-full rounded-tl-2xl rounded-bl-2xl" />
                     </div>
-                    <div
-                         class="w-full md:w-1/2 flex flex-col mx-auto">
-                         <div class="w-full max-w-lg p-6 md:p-8 md:pb-10 mx-auto my-auto">
+                    <div class="w-full md:w-1/2 flex flex-col mx-auto">
+                        <div class="w-full max-w-lg p-6 md:p-8 md:pb-10 mx-auto my-auto">
                             <h2 class="font-bold text-3xl mb-5 md:mb-8">Registrate</h2>
                             <form action="#"
-                                @submit.prevent="registerAcc">
+                                  @submit.prevent="registerAcc">
                                 <div class="space-y-4 text-left">
                                     <!--Campo Nombre-->
                                     <div>
-                                        <label for="full_name" class="block mb-2">Nombre completo:*</label>
+                                        <label for="full_name"
+                                               class="block mb-2">Nombre completo:*</label>
                                         <div class="flex">
                                             <input id="full_name"
-                                                type="text"
-                                                name="full_name"
-                                                placeholder="Ej. José Pérez"
-                                                v-model="user.full_name"
-                                                required>
+                                                   type="text"
+                                                   name="full_name"
+                                                   placeholder="Ej. José Pérez"
+                                                   v-model="user.full_name"
+                                                   required>
                                         </div>
                                     </div>
                                     <!--Campo mail-->
-                                    <div >
-                                        <label for="email" class="block mb-2">Correo electrónico:*</label>
+                                    <div>
+                                        <label for="email"
+                                               class="block mb-2">Correo electrónico:*</label>
                                         <div class="flex">
                                             <input id="email"
-                                                type="email"
-                                                name="email"
-                                                placeholder="email@email.com"
-                                                v-model="user.email"
-                                                required>
+                                                   type="email"
+                                                   name="email"
+                                                   placeholder="email@email.com"
+                                                   v-model="user.email"
+                                                   required>
                                         </div>
                                     </div>
                                     <!--Campo contraseña-->
                                     <div>
-                                        <label for="password" class="block mb-2">Contraseña:*</label>
+                                        <label for="password"
+                                               class="block mb-2">Contraseña:*</label>
                                         <div class="flex">
                                             <input id="password"
-                                                type="password"
-                                                name="password"
-                                                placeholder="******"
-                                                v-model="user.password"
-                                                required>
+                                                   type="password"
+                                                   name="password"
+                                                   placeholder="******"
+                                                   v-model="user.password"
+                                                   required>
                                         </div>
                                     </div>
                                     <!--Campo repetir contraseña-->
                                     <div>
-                                        <label for="career" class="block mb-2">Profesión:</label>
+                                        <label for="career"
+                                               class="block mb-2">Profesión:</label>
                                         <div class="flex">
                                             <input id="career"
-                                                type="text"
-                                                name="career"
-                                                placeholder="Ing. agrónomo"
-                                                v-model="user.career">
+                                                   type="text"
+                                                   name="career"
+                                                   placeholder="Ing. agrónomo"
+                                                   v-model="user.career">
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label for="biography" class="block mb-2">Sobre mí:</label>
+                                        <label for="biography"
+                                               class="block mb-2">Sobre mí:</label>
                                         <div class="flex">
                                             <textarea id="biography"
-                                                    name="biography"
-                                                    placeholder="Hace una breve descripción"
-                                                    v-model="user.biography" rows="3"></textarea>
+                                                      name="biography"
+                                                      placeholder="Hace una breve descripción"
+                                                      v-model="user.biography"
+                                                      rows="3"></textarea>
                                         </div>
                                     </div>
 

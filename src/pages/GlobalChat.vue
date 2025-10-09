@@ -145,7 +145,7 @@ export default {
                                         <RouterLink v-if="message.user_profiles"
                                                     :to="`/perfil/${message.user_profiles.id}`"
                                                     class="text-primary-dark"><span class="font-semibold">{{
-                                                message.user_profiles.full_name }}</span> dijo:
+                                                        message.user_profiles.full_name }}</span> dijo:
                                         </RouterLink>
                                         <p class="mb-2">{{ message.message }}</p>
                                         <p class="text-primary text-sm text-right">{{ formatDate(message.created_at) }}

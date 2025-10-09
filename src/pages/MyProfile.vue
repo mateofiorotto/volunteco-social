@@ -76,16 +76,17 @@ export default {
                         <div class="basis-2/5">
 
                             <div class="flex mb-3 px-4">
-                                <RouterLink to="/mi-perfil/cambiar-datos" class="text-sm inline-flex items-center gap-1 ml-auto text-primary">
+                                <RouterLink to="/mi-perfil/cambiar-datos"
+                                            class="text-sm inline-flex items-center gap-1 ml-auto text-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="size-6 inline-block align-middle">
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke-width="1.5"
+                                         stroke="currentColor"
+                                         class="size-6 inline-block align-middle">
                                         <path stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                              stroke-linejoin="round"
+                                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                     </svg>
                                     Modificar datos
                                 </RouterLink>
@@ -97,8 +98,10 @@ export default {
                                 <p class="text-body/80">Email:</p>
                                 <p class="col-span-3 font-medium">{{ user.email }}</p>
                                 <p class="text-body/80">Profesión:</p>
-                                <p class="col-span-3 font-medium">{{ user.career ? user.career :'Sin especificar...' }}</p>
-                                <p class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography : 'Sin especificar...' }}</p>
+                                <p class="col-span-3 font-medium">{{ user.career ? user.career : 'Sin especificar...' }}
+                                </p>
+                                <p class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography :
+                                    'Sin especificar...' }}</p>
                             </div>
 
                         </div>
@@ -106,20 +109,21 @@ export default {
                             <div class="bg-light border rounded-2xl p-4">
                                 <!-- Formulario para crear post -->
                                 <form action="#"
-                                    @submit.prevent="createNewPost">
-                                    <label for="content" class="block mb-3">Nueva publicación:</label>
+                                      @submit.prevent="createNewPost">
+                                    <label for="content"
+                                           class="block mb-3">Nueva publicación:</label>
                                     <textarea v-model="content"
-                                            id="content"
-                                            required
-                                            name="content"
-                                            placeholder="Escribí tu mensaje..."
-                                            class="bg-white mb-5"
-                                            rows="4"></textarea>
-                                            <div class="text-right">
-                                    <button type="submit"
-                                            class="btn btn-primary">
-                                        Enviar
-                                    </button>
+                                              id="content"
+                                              required
+                                              name="content"
+                                              placeholder="Escribí tu mensaje..."
+                                              class="bg-white mb-5"
+                                              rows="4"></textarea>
+                                    <div class="text-right">
+                                        <button type="submit"
+                                                class="btn btn-primary">
+                                            Enviar
+                                        </button>
                                     </div>
 
                                 </form>
@@ -130,22 +134,21 @@ export default {
 
                     <!-- Lista de posts -->
                     <div v-if="posts.length === 0"
-                        class="text-center text-gray-500">
+                         class="text-center text-gray-500">
                         No hay publicaciones aún.
                     </div>
                     <div v-else>
                         <div class="md:w-3/5 w-full">
-                        <h2 class="font-bold text-3xl mb-5 md:mb-10">Mis publicaciones</h2>
-                        <ol data-aos="fade"
-                            aria-label="Publicaciones"
-                            ref="postsContainer"
-                            class="-ml-[12.5%]"
-                            >
-                            <PostCard v-for="post in posts"
-                                    :key="post.id"
-                                    :post="post"
-                                    :user="user" />
-                        </ol>
+                            <h2 class="font-bold text-3xl mb-5 md:mb-10">Mis publicaciones</h2>
+                            <ol data-aos="fade"
+                                aria-label="Publicaciones"
+                                ref="postsContainer"
+                                class="-ml-[12.5%]">
+                                <PostCard v-for="post in posts"
+                                          :key="post.id"
+                                          :post="post"
+                                          :user="user" />
+                            </ol>
                         </div>
                     </div>
                 </div>

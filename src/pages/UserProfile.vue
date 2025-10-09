@@ -58,8 +58,9 @@ export default {
 </script>
 
 <template>
-    <section class="perfil-usuario" data-aos="fade">
-        <div class="px-4 py-8 mx-auto w-full max-w-7xl"> 
+    <section class="perfil-usuario"
+             data-aos="fade">
+        <div class="px-4 py-8 mx-auto w-full max-w-7xl">
             <template v-if="loading">
                 <div class="flex w-full my-50 justify-center items-center">
                     <MainLoader />
@@ -67,17 +68,21 @@ export default {
             </template>
             <template v-else>
                 <div data-aos="fade">
-                     <h2 class="font-bold text-3xl mb-5 md:mb-10">Perfil de usuario</h2>
+                    <h2 class="font-bold text-3xl mb-5 md:mb-10">Perfil de usuario</h2>
                     <div class="flex flex-col md:flex-row justify-between gap-7 md:gap-20 mb-10">
                         <div class="basis-2/5">
                             <div class="md:grid grid-cols-4 gap-1 border rounded-2xl p-4 border-gray-400">
                                 <p class="text-body/80">Nombre:</p>
                                 <p class="col-span-3 font-medium">{{ user.full_name }}</p>
                                 <p class="text-body/80">Email:</p>
-                                <p class="col-span-3 font-medium"><a :href="`mailto:${ user.email }`" target="_blank" class="text-secondary">{{ user.email }}</a></p>
+                                <p class="col-span-3 font-medium"><a :href="`mailto:${user.email}`"
+                                       target="_blank"
+                                       class="text-secondary">{{ user.email }}</a></p>
                                 <p class="text-body/80">Profesión:</p>
-                                <p class="col-span-3 font-medium">{{ user.career ? user.career :'Sin especificar...' }}</p>
-                                <p class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography : 'Sin especificar...' }}</p>
+                                <p class="col-span-3 font-medium">{{ user.career ? user.career : 'Sin especificar...' }}
+                                </p>
+                                <p class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography :
+                                    'Sin especificar...' }}</p>
                             </div>
                         </div>
                         <div class="basis-3/5">
@@ -91,9 +96,9 @@ export default {
                                     aria-label="Publicaciones"
                                     ref="postsContainer">
                                     <PostCard v-for="post in posts"
-                                            :key="post.id"
-                                            :post="post"
-                                            :user="authUser" />
+                                              :key="post.id"
+                                              :post="post"
+                                              :user="authUser" />
                                 </ol>
                             </div>
                         </div>
