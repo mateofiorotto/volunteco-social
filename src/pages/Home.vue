@@ -12,7 +12,7 @@ export default {
         <div role="banner"
              class="backdrop-brightness-60 backdrop-blur-sm h-[85vh] flex justify-center flex-col align-center text-center text-white lg:px-0 md:px-20 px-10">
             <h2 data-aos="fade-down"
-                class="font-bold text-3xl lg:text-5xl">¡Bienvenido/a a Volunteco Social!</h2>
+                class="font-bold text-3xl lg:text-5xl text-white">¡Bienvenido/a a Volunteco Social!</h2>
             <p data-aos="fade-up"
                class="text-xl lg:text-2xl mt-10 font-semibold">Hablá con gente interesada por la ecología.<br />Creemos
                 un mundo mejor.</p>

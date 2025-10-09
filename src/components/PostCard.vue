@@ -23,21 +23,17 @@ export default {
 </script>
 
 <template>
-    <li class="post bg-white rounded-2xl shadow-md p-4 sm:p-6 mb-6 border-1 border-primary py-10 break-all">
-        <RouterLink class="font-bold text-primary mb-3"
-                    :to="`/perfil/${post.user_profiles.id}`">
-            {{ post.user_profiles.full_name }}
-        </RouterLink>
+    <li class="post odd:bg-light even:bg-light/10 border rounded-2xl p-4 mb-5">
+        <div class="flex items-baseline gap-1.5 mb-2">
+            <RouterLink class="text-primary-dark font-semibold"
+                        :to="`/perfil/${post.user_profiles.id}`">
+                {{ post.user_profiles.full_name }}
+            </RouterLink> 
+            <span class="text-primary/75 text-sm">{{formatDate(post.created_at) }}</span>
+        </div>
 
         <!-- Contenido post -->
-        <p class="text-gray-700 mb-4">
-            {{ post.content }}
-        </p>
+        <div>{{ post.content }}</div>
 
-        <!-- acciones -->
-        <div>
-            <p class="text-primary">{{
-                formatDate(post.created_at) }}</p>
-        </div>
     </li>
 </template>

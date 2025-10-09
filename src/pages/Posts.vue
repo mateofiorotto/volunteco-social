@@ -59,46 +59,54 @@ export default {
 </script>
 
 <template>
-    <section data-aos="fade"
-             class="posteos px-10 lg:px-30 py-10">
-        <h2 class="sr-only">Ultimos posteos</h2>
-        <div class="crear-post">
-            <form action="#"
-                  @submit.prevent="createNewPost"
-                  class="flex flex-col rounded-lg border border-primary focus-within:border-green-600 mb-10 p-4">
-
-                <label for="content"
-                       class="sr-only">Contenido del post</label>
-                <textarea v-model="content"
-                          id="content"
-                          required
-                          name="content"
-                          placeholder="Escribí lo que pensas..."
-                          class="resize-none outline-none w-full h-30 p-3 rounded-lg"></textarea>
-
-                <button type="submit"
-                        class="self-end mt-2 px-4 py-3 bg-primary py-3 px-8 text-lg font-bold text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">
-                    Postear
-                </button>
-            </form>
-
-
-            <template v-if="loading">
-                <div class="flex w-full mt-16 mb-16 justify-center items-center">
-                    <MainLoader />
+    <section data-aos="fade" class="posteos">
+        <div class="px-4 py-8 mx-auto w-full max-w-7xl">
+            <h2 class="font-bold text-3xl mb-5 md:mb-8">Mensajes</h2>
+            <div class="flex flex-col md:flex-row justify-between gap-7 md:gap-20 mb-10">
+                <div class="basis-3/5">
+                    <template v-if="loading">
+                        <div class="flex w-full mt-16 mb-16 justify-center items-center">
+                            <MainLoader />
+                        </div>
+                    </template>
+                    <template v-else>
+                        <h3 class="font-bold text-2xl mb-5">Ultimos mensajes</h3>
+                        <ol data-aos="fade"
+                            aria-label="Posteos"
+                            ref="postsContainer">
+                            <PostCard v-for="post in posts"
+                                    :key="post.id"
+                                    :post="post"
+                                    :user="user" />
+                        </ol>
+                    </template>
                 </div>
-            </template>
-            <template v-else>
-                <h3 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-primary">Ultimos posteos</h3>
-                <ol data-aos="fade"
-                    aria-label="Posteos"
-                    ref="postsContainer">
-                    <PostCard v-for="post in posts"
-                              :key="post.id"
-                              :post="post"
-                              :user="user" />
-                </ol>
-            </template>
+                <div class="basis-2/5">
+                    <h3 class="font-bold text-2xl mb-5">Mensaje nuevo</h3>
+                    <div class="crear-post bg-light border rounded-2xl p-4 mb-8">
+                        <form action="#"
+                            @submit.prevent="createNewPost">
+                            
+
+                            <label for="content" class="block mb-3">Mensaje nuevo:</label>
+                            <textarea v-model="content"
+                                    id="content"
+                                    required
+                                    name="content"
+                                    placeholder="Escribí tu mensaje..."
+                                    rows="4"
+                                    class="bg-white mb-5"></textarea>
+                            <div class="text-right">
+                                <button type="submit"
+                                        class="btn btn-primary">
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     </section>

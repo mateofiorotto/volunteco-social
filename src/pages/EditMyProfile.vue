@@ -76,47 +76,54 @@ export default {
 </script>
 
 <template>
-    <section class="overflow-hidden px-10 lg:px-30 pt-10 pb-30 mi-perfil">
-        <template v-if="loading">
-            <div class="flex w-full my-40 justify-center items-center">
-                <MainLoader />
-            </div>
-        </template>
-        <template v-else>
-            <div data-aos="fade">
-                <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase text-primary">Actualizar perfil</h2>
+    <section class="mi-perfil">
+        <div class="px-4 py-8 mx-auto w-full max-w-3xl">
+            <template v-if="loading">
+                <div class="flex w-full my-40 justify-center items-center">
+                    <MainLoader />
+                </div>
+            </template>
+            <template v-else>
+                <div data-aos="fade">
+                    <h2 class="font-bold text-3xl mb-10 text-center">Actualizar mi perfil</h2>
 
-                <form action="#"
-                      @submit.prevent="editProfile">
-                    <label class="text-lg font-bold"
-                           for="full_name">Nombre<span class="ml-2 text-orange-500">*</span></label>
-                    <input class="py-3 my-3"
-                           type="text"
-                           placeholder="Nombre *"
-                           v-model="updateFormData.full_name"
-                           name="full_name"
-                           id="full_name"
-                           required>
-
-                    <label class="text-lg font-bold"
-                           for="biography">Biografia</label>
-                    <input class="py-3 my-3"
-                           type="text"
-                           placeholder="Biografia"
-                           name="biography"
-                           id="biography"
-                           v-model="updateFormData.biography">
-
-                    <label class="text-lg font-bold"
-                           for="career">Carrera</label>
-                    <input class="py-3 my-3"
-                           type="text"
-                           placeholder="Carrera"
-                           name="career"
-                           id="career"
-                           v-model="updateFormData.career">
-
-                    <label class="text-lg font-bold"
+                    <div class="border rounded-2xl p-4 md:p-8">
+                        <form action="#"
+                            @submit.prevent="editProfile">
+                            <div class="space-y-4 text-left">
+                                <div>
+                                    <label class="block mb-2 text-body/80"
+                                        for="full_name">Nombre completo: *</label>
+                                    <input 
+                                        type="text"
+                                        placeholder="Nombre completo"
+                                        v-model="updateFormData.full_name"
+                                        name="full_name"
+                                        id="full_name"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-body/80"
+                                    for="career">Profesión:</label>
+                                    <input 
+                                        type="text"
+                                        placeholder="Profesión"
+                                        name="career"
+                                        id="career"
+                                        v-model="updateFormData.career">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-body/80"
+                                        for="biography">Sobre mí:</label>
+                                    <textarea
+                                        placeholder="Biografía"
+                                        name="biography"
+                                        id="biography"
+                                        v-model="updateFormData.biography"
+                                        rows="3"></textarea>
+                                </div>
+                                <div>
+                            <label class="text-lg font-bold"
                            for="password">Contraseña</label>
                     <input class="py-3 my-3"
                            type="password"
@@ -125,16 +132,18 @@ export default {
                            id="password"
                            v-model="updateFormData.password">
 
-                    <button type="submit"
-                            class="self-end mt-2 px-4 py-3 bg-primary py-3 px-8 text-lg font-bold text-white rounded-lg hover:bg-green-600 transition-all duration-300 ease-in-out">Editar</button>
-                </form>
-            </div>
-        </template>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit"
+                                    class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+
+                </div>
+            </template>
+        </div>
     </section>
 </template>
-
-<style>
-input {
-    color: black;
-}
-</style>

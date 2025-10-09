@@ -47,105 +47,92 @@ export default {
 </script>
 
 <template>
-    <section class="registrarse overflow-hidden">
-        <div class="min-w-screen min-h-screen flex items-center justify-center p-5 bg-primary border-b-3 border-white">
+    <section class="registrarse bg-primary flex-grow content-center">
+        <div class="p-6 md:p-8 mx-auto w-full max-w-7xl">
             <div data-aos="zoom-out"
-                 class="contenedor-principal shadow-xl/50 w-full max-w-[80%] rounded-3xl overflow-hidden">
-                <div class="md:flex w-full">
+                 class="contenedor-principal">
+                <div class="md:flex w-full rounded-2xl bg-white text-center shadow-lg/50">
                     <!--img-->
                     <div class="hidden lg:block w-1/2">
                         <img :src="registerImage"
-                             alt="Imagen de registro"
-                             class="w-full h-full object-cover" />
+                             alt="Hojas de un arbol"
+                             class="object-cover h-full rounded-tl-2xl rounded-bl-2xl" />
                     </div>
                     <div
-                         class="w-full lg:w-1/2 py-10 lg:px-10 px-5 md:px-15 bg-slate-100 text-primary justify-center flex flex-col">
-                        <h2 class="font-bold text-3xl text-center mb-10 mt-5 uppercase">Registrate</h2>
-                        <form action="#"
-                              @submit.prevent="registerAcc">
-                            <div>
-                                <div class="flex flex-wrap">
-
+                         class="w-full md:w-1/2 flex flex-col">
+                         <div class="w-full max-w-lg p-6 md:p-8 md:pb-10 mx-auto my-auto">
+                            <h2 class="font-bold text-3xl mb-5 md:mb-8">Registrate</h2>
+                            <form action="#"
+                                @submit.prevent="registerAcc">
+                                <div class="space-y-4 text-left">
                                     <!--Campo Nombre-->
-                                    <div class="w-1/2 px-3 mb-12">
-                                        <label for="full_name"
-                                               class="sr-only">Nombre Completo</label>
+                                    <div>
+                                        <label for="full_name" class="block mb-2">Nombre completo:*</label>
                                         <div class="flex">
                                             <input id="full_name"
-                                                   type="text"
-                                                   name="full_name"
-                                                   class="w-full px-3 py-2 rounded-lg border-1 border-primary outline-none focus:border-green-600"
-                                                   placeholder="Nombre Completo *"
-                                                   v-model="user.full_name"
-                                                   required>
+                                                type="text"
+                                                name="full_name"
+                                                placeholder="Ej. José Pérez"
+                                                v-model="user.full_name"
+                                                required>
                                         </div>
                                     </div>
                                     <!--Campo mail-->
-                                    <div class="w-1/2 px-3 mb-12">
-                                        <label for="email"
-                                               class="sr-only">Email</label>
+                                    <div >
+                                        <label for="email" class="block mb-2">Correo electrónico:*</label>
                                         <div class="flex">
                                             <input id="email"
-                                                   type="email"
-                                                   name="email"
-                                                   class="w-full px-3 py-2 rounded-lg border-1 border-primary outline-none focus:border-green-600"
-                                                   placeholder="Correo electrónico *"
-                                                   v-model="user.email"
-                                                   required>
+                                                type="email"
+                                                name="email"
+                                                placeholder="email@email.com"
+                                                v-model="user.email"
+                                                required>
                                         </div>
                                     </div>
                                     <!--Campo contraseña-->
-                                    <div class="w-1/2 px-3 mb-12">
-                                        <label for="password"
-                                               class="sr-only">Contraseña</label>
+                                    <div>
+                                        <label for="password" class="block mb-2">Contraseña:*</label>
                                         <div class="flex">
                                             <input id="password"
-                                                   type="password"
-                                                   name="password"
-                                                   class="w-full px-3 py-2 rounded-lg border-1 border-primary outline-none focus:border-green-600"
-                                                   placeholder="Contraseña *"
-                                                   v-model="user.password"
-                                                   required>
+                                                type="password"
+                                                name="password"
+                                                placeholder="******"
+                                                v-model="user.password"
+                                                required>
                                         </div>
                                     </div>
                                     <!--Campo repetir contraseña-->
-                                    <div class="w-1/2 px-3 mb-12">
-                                        <label for="career"
-                                               class="sr-only">Carrera</label>
+                                    <div>
+                                        <label for="career" class="block mb-2">Profesión:</label>
                                         <div class="flex">
                                             <input id="career"
-                                                   type="text"
-                                                   name="career"
-                                                   class="w-full px-3 py-2 rounded-lg border-1 border-primary outline-none focus:border-green-600"
-                                                   placeholder="Carrera"
-                                                   v-model="user.career">
+                                                type="text"
+                                                name="career"
+                                                placeholder="Ing. agrónomo"
+                                                v-model="user.career">
                                         </div>
                                     </div>
 
-                                    <div class="w-full px-3 mb-12">
-                                        <label for="biography"
-                                               class="sr-only">Biografia</label>
+                                    <div>
+                                        <label for="biography" class="block mb-2">Sobre mí:</label>
                                         <div class="flex">
                                             <textarea id="biography"
-                                                      name="biography"
-                                                      class="resize-none w-full px-3 py-2 rounded-lg border-1 border-primary outline-none focus:border-green-600"
-                                                      placeholder="Biografia"
-                                                      v-model="user.biography"></textarea>
+                                                    name="biography"
+                                                    placeholder="Hace una breve descripción"
+                                                    v-model="user.biography" rows="3"></textarea>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!--Boton registrar-->
-                                <div class="flex -mx-3">
-                                    <div class="w-full px-3 mb-5">
+                                    <!--Boton registrar-->
+                                    <div>
                                         <button type="submit"
-                                                class="font-bold text-lg block w-full max-w-xs mx-auto btn-primary btn">
+                                                class="btn-primary btn mx-auto block w-full">
                                             Registrarse
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

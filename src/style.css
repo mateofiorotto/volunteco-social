@@ -4,26 +4,34 @@
 @theme {
     --font-sans: 'Noto Sans', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: "Nunito", sans-serif;
+    --color-body: oklch(0.235 0 0);
     --color-primary: oklch(0.5593 0.1338 122.9);
-    --color-secondary: oklch(0.235 0 0);
+    --color-secondary: oklch(0.4592 0.1469 24.64);
+    --color-light: oklch(0.9566 0.0462 115.18);
+    --color-primary-dark: oklch(0.4665 0.1106 122.56);
 }
 
 @layer base {
+  body {
+    @apply text-body;
+  }
   h1 {
     @apply mb-4 text-3xl font-display;
   }
   h1, h2, h3 {
-    @apply font-display;
+    @apply font-display text-primary;
   }
   input::placeholder {
-    @apply text-red-400;
+    @apply text-primary;
   }
-  input {
-    @apply text-primary px-3 py-2 border border-primary rounded-md w-full;
+  input, textarea {
+    @apply text-body px-3 py-2 border border-primary rounded-md w-full outline-primary;
     &::placeholder {
-      @apply text-red-900;
+      @apply text-body/60;
     }
-
+    &:focus {
+      @apply border-primary
+    }
   }
   button {
     cursor: pointer;
@@ -59,13 +67,19 @@
     }
   }
   .btn {
-    @apply rounded-lg cursor-pointer p-2 inline-block border;
+    @apply rounded-lg cursor-pointer py-2 px-3 inline-block border;
   }
   .btn-primary {
     @apply text-white bg-primary border-primary;
+    &:hover {
+      @apply bg-primary-dark
+    }
   }
   .btn-primary-outline {
     @apply text-primary bg-white border-primary;
+    &:hover {
+      @apply bg-primary-dark text-white;
+    }
   }
 
 }

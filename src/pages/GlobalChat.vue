@@ -87,7 +87,7 @@ export default {
         <h2 class="hidden">Chat global</h2>
 
         <section
-                 class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-primary border-1 border-t-0 rounded w-full lg:w-9/12">
+                 class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-primary border-t-0 rounded w-full lg:w-9/12">
             <div
                  class="sticky top-0 mt-1 bg-primary p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -167,13 +167,3 @@ export default {
 
     </section>
 </template>
-
-<style>
-input::placeholder {
-    color: #348534;
-}
-
-textarea::placeholder {
-    color: #348534;
-}
-</style>
