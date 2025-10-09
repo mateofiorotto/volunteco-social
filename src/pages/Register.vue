@@ -53,13 +53,13 @@ export default {
                  class="contenedor-principal">
                 <div class="md:flex w-full rounded-2xl bg-white text-center shadow-lg/50">
                     <!--img-->
-                    <div class="hidden lg:block w-1/2">
+                    <div class="hidden md:block w-1/2">
                         <img :src="registerImage"
                              alt="Hojas de un arbol"
                              class="object-cover h-full rounded-tl-2xl rounded-bl-2xl" />
                     </div>
                     <div
-                         class="w-full md:w-1/2 flex flex-col">
+                         class="w-full md:w-1/2 flex flex-col mx-auto">
                          <div class="w-full max-w-lg p-6 md:p-8 md:pb-10 mx-auto my-auto">
                             <h2 class="font-bold text-3xl mb-5 md:mb-8">Registrate</h2>
                             <form action="#"

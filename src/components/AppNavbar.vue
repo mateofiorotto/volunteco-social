@@ -18,6 +18,11 @@ export default {
         handleLogout() {
             logout();
             this.$router.push('/iniciar-sesion');
+        },
+        handleLinkClick() {
+            if (this.open && window.innerWidth < 768) {
+                this.open = false;
+            }
         }
     },
     mounted() {
@@ -59,9 +64,10 @@ export default {
                     </svg>
                 </button>
                 <!-- Menu de navegacion -->
-                <div :class="[open ? 'block' : 'hidden', 'navbar absolute md:relative md:block border-b-1 border-primary lg:border-b-0']"
+                <div :class="[open ? 'block' : 'hidden', 'navbar absolute md:relative md:block border-b-1 border-primary md:border-b-0']"
                      id="navbar-default">
-                    <ul class="flex flex-col md:flex-row gap-4 md:items-center items-end justify-end">
+                    <ul class="flex flex-col md:flex-row gap-4 md:items-center items-end justify-end"
+                    @click="open = false">
                         <!--Botones de login y registro-->
                         <template v-if="user.id === null">
                             <li>

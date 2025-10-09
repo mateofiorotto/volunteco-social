@@ -70,7 +70,7 @@ export default {
                                 <div class="text-body/80">Nombre:</div>
                                 <div class="col-span-3 font-medium">{{ user.full_name }}</div>
                                 <div class="text-body/80">Email:</div>
-                                <div class="col-span-3 font-medium"><a href="{{ user.email }}" target="_blank" class="text-secondary">{{ user.email }}</a></div>
+                                <div class="col-span-3 font-medium"><a :href="`mailto:${ user.email }`" target="_blank" class="text-secondary">{{ user.email }}</a></div>
                                 <div class="text-body/80">Profesión:</div>
                                 <div class="col-span-3 font-medium">{{ user.career ? user.career :'Sin especificar...' }}</div>
                                 <div class="col-span-4 p-4 bg-light rounded-2xl mt-5">{{ user.biography ? user.biography : 'Sin especificar...' }}</div>

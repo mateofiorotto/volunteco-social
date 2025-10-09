@@ -123,14 +123,14 @@ export default {
                                         rows="3"></textarea>
                                 </div>
                                 <div>
-                            <label class="text-lg font-bold"
-                           for="password">Contraseña</label>
-                    <input class="py-3 my-3"
-                           type="password"
-                           placeholder="Contraseña"
-                           name="password"
-                           id="password"
-                           v-model="updateFormData.password">
+                                    <label class="block mb-2 text-body/80"
+                                for="password">Contraseña:</label>
+                                    <input
+                                        type="password"
+                                        placeholder="******"
+                                        name="password"
+                                        id="password"
+                                        v-model="updateFormData.password">
 
                                 </div>
                                 <div class="text-right">

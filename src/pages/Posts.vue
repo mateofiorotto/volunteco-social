@@ -54,6 +54,26 @@ export default {
     unmounted() {
         unsubscribeAuth();
         unsubscribePosts();
+    },
+    computed: {
+        postsWithGroup() {
+            const result = [];
+            let lastAuthorId = null;
+            let toggle = 0;
+
+            for (const post of this.posts) {
+                if (post.user_profiles.id !== lastAuthorId) {
+                    toggle = 1 - toggle;
+                    lastAuthorId = post.user_profiles.id;
+                }
+
+                result.push({
+                    ...post,
+                    groupStyle: toggle
+                });
+            }
+            return result;
+        }
     }
 }
 </script>
@@ -62,32 +82,13 @@ export default {
     <section data-aos="fade" class="posteos">
         <div class="px-4 py-8 mx-auto w-full max-w-7xl">
             <h2 class="font-bold text-3xl mb-5 md:mb-8">Mensajes</h2>
-            <div class="flex flex-col md:flex-row justify-between gap-7 md:gap-20 mb-10">
-                <div class="basis-3/5">
-                    <template v-if="loading">
-                        <div class="flex w-full mt-16 mb-16 justify-center items-center">
-                            <MainLoader />
-                        </div>
-                    </template>
-                    <template v-else>
-                        <h3 class="font-bold text-2xl mb-5">Ultimos mensajes</h3>
-                        <ol data-aos="fade"
-                            aria-label="Posteos"
-                            ref="postsContainer">
-                            <PostCard v-for="post in posts"
-                                    :key="post.id"
-                                    :post="post"
-                                    :user="user" />
-                        </ol>
-                    </template>
-                </div>
+            <div class="flex flex-col md:flex-row-reverse justify-between gap-7 md:gap-20 mb-10">
                 <div class="basis-2/5">
                     <h3 class="font-bold text-2xl mb-5">Mensaje nuevo</h3>
                     <div class="crear-post bg-light border rounded-2xl p-4 mb-8">
                         <form action="#"
                             @submit.prevent="createNewPost">
                             
-
                             <label for="content" class="block mb-3">Mensaje nuevo:</label>
                             <textarea v-model="content"
                                     id="content"
@@ -105,9 +106,27 @@ export default {
                         </form>
                     </div>
                 </div>
-
+                <div class="basis-3/5">
+                    <template v-if="loading">
+                        <div class="flex w-full mt-16 mb-16 justify-center items-center">
+                            <MainLoader />
+                        </div>
+                    </template>
+                    <template v-else>
+                        <h3 class="font-bold text-2xl mb-5">Ultimos mensajes</h3>
+                        <ol data-aos="fade"
+                            aria-label="Posteos"
+                            ref="postsContainer">
+                            <PostCard v-for="(post, index) in postsWithGroup"
+                                    :key="post.id"
+                                    :post="post"
+                                    :user="user"
+                                    :group-style="post.groupStyle"
+                                     />
+                        </ol>
+                    </template>
+                </div>
             </div>
-
         </div>
     </section>
 </template>

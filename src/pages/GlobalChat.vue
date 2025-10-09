@@ -37,7 +37,19 @@ export default {
             }
         },
         formatDate(created_at) {
-            return useDateFormat(created_at, 'DD/MM/YYYY HH:mm').value
+            const date = new Date(created_at)
+            const now = new Date()
+
+            const isSameDay =
+                date.getFullYear() === now.getFullYear() &&
+                date.getMonth() === now.getMonth() &&
+                date.getDate() === now.getDate()
+            if (isSameDay) {
+                return useDateFormat(date, 'HH:mm').value
+            } else {
+                return useDateFormat(date, 'DD/MM/YYYY - HH:mm').value
+            }
+
         }
     },
     async mounted() {
@@ -78,92 +90,108 @@ export default {
         unsubscribeAuth();
         unsubscribeChat();
     },
+    computed: {
+        groupedMessages() {
+            const result = [];
+            let lastAuthorId = null;
+            let toggle = 0;
+
+            for (const message of this.messages) {
+            if (message.user_profiles?.id !== lastAuthorId) {
+                toggle = 1 - toggle;
+                lastAuthorId = message.user_profiles?.id;
+            }
+
+            result.push({
+                ...message,
+                groupStyle: toggle
+            });
+            }
+
+            return result;
+        }
+    }
+
 }
 </script>
 
 <template>
-    <section data-aos="fade"
-             class="px-10 md:px-20 lg:px-30 mt-5 mb-5 h-[95vh] lg:h-[80vh] chat-global flex flex-col lg:flex-row justify-center gap-10">
-        <h2 class="hidden">Chat global</h2>
+    <section data-aos="fade">
+        <div class="px-4 py-8 mx-auto w-full max-w-7xl">
 
-        <section
-                 class="chat-container lg:overflow-visible overflow-y-hidden mt-10 mb-3 lg:mb-10 chat border border-primary border-t-0 rounded w-full lg:w-9/12">
-            <div
-                 class="sticky top-0 mt-1 bg-primary p-4 text-xl font-bold text-white flex gap-2 justify-center items-center">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke-width="1.5"
-                     stroke="currentColor"
-                     class="size-7">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                </svg>
-                <h3>Chat Global</h3>
+            <div class="flex flex-col md:flex-row items-end justify-between gap-7 md:gap-20 mb-10">
+                <div class="md:basis-3/5">
+                    <h2 class="font-bold text-3xl mb-5 md:mb-8">Chat</h2>
+                    <div class="chat-container overflow-visible overflow-y-hidden chat w-full border rounded-2xl">
+                        <template v-if="!loading">
+                            <div class="overflow-y-auto h-full max-h-svh"
+                                ref="messagesContainer">
+
+                                <ol class="flex flex-col items-start gap-4 p-4"
+                                    aria-label="chat"
+                                    role="list">
+                                    <li v-for="message in groupedMessages"
+                                        role="listitem"
+                                        :key="message.id"
+                                        :class="['p-4 rounded-3xl break-all w-7/8',
+                                        message.groupStyle === 0 ? 'bg-light' : 'bg-light/50',
+                                        message.user_profiles?.id === user.id ? 'ml-auto text-right' : ''
+                                        ]">
+                                        <RouterLink v-if="message.user_profiles"
+                                                    :to="`/perfil/${message.user_profiles.id}`"
+                                                    class="text-primary-dark"><span class="font-semibold">{{ message.user_profiles.full_name }}</span> dijo:
+                                        </RouterLink>
+                                        <p class="mb-2">{{ message.message }}</p>
+                                        <p class="text-primary text-sm text-right">{{ formatDate(message.created_at) }}</p>
+                                    </li>
+                                </ol>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="flex w-full md:h-[25vh] lg:h-[50vh] justify-center items-center">
+                                <MainLoader />
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="enviar-mensaje md:basis-2/5 w-full">
+                    <h2 class="font-bold text-2xl mb-5 md:mb-8">Mensaje nuevo</h2>
+                    <div class="crear-post bg-light border rounded-2xl p-4">
+                        <form action="#"
+                            @submit.prevent="sendMessage">
+
+                            <label for="content" class="block mb-3">Mensaje nuevo:</label>
+
+                            <textarea placeholder="Mensaje *"
+                                    id="message"
+                                    name="message"
+                                    required
+                                    rows="4"
+                                    v-model="message"
+                                    class="bg-white mb-5"></textarea>
+                                <div class="text-right">
+                                <button type="submit"
+                                        class="btn btn-primary inline-flex items-center">
+                                    Enviar
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="size-5 ml-2">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                                    </svg></button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-            <template v-if="!loading">
-                <div class="overflow-y-auto h-[80%]"
-                     ref="messagesContainer">
-                    <h4 class="sr-only">Lista de mensajes</h4>
 
-                    <ol class="flex flex-col items-start gap-4 p-4"
-                        aria-label="chat"
-                        role="list">
-                        <li v-for="message in messages"
-                            role="listitem"
-                            :key="message.id"
-                            class="p-4 rounded-3xl bg-green-100 border-primary break-all">
-                            <RouterLink v-if="message.user_profiles"
-                                        :to="`/perfil/${message.user_profiles.id}`"
-                                        class="mb-1">
-                                <span class="font-bold text-primary">{{ message.user_profiles.full_name }}</span>
-                                dijo:
-                            </RouterLink>
-                            <p class="mb-1">{{ message.message }}</p>
-                            <p class="text-sm text-gray-800">{{ formatDate(message.created_at) }}</p>
-                        </li>
-                    </ol>
-                </div>
-            </template>
-            <template v-else>
-                <div class="flex w-full md:h-[25vh] lg:h-[50vh] justify-center items-center">
-                    <MainLoader />
-                </div>
-            </template>
-        </section>
-
-        <section class="mt-0 lg:mt-10 mb-10 lg:mb-0 enviar-mensaje w-[100%] lg:w-3/12">
-            <h3 class="text-xl font-semibold text-primary mb-5">Enviar un mensaje</h3>
-            <form action="#"
-                  @submit.prevent="sendMessage">
-
-                <div class="mb-4">
-                    <label for="message"
-                           class="sr-only block mb-1">Mensaje</label>
-                    <textarea placeholder="Mensaje *"
-                              id="message"
-                              name="message"
-                              required
-                              class="resize-none w-full p-2 border-1 border-primary outline-none focus:ring-1 focus:ring-primary rounded"
-                              v-model="message"></textarea>
-                </div>
-                <button type="submit"
-                        class="flex gap-3 items-center justify-center transition-all duration-300 ease-in-out px-6 py-3 mt-6 lg:mt-0 rounded-3xl 
-                    bg-primary hover:bg-green-600 cursor-pointer font-bold text-xl uppercase text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke-width="1.5"
-                         stroke="currentColor"
-                         class="size-6">
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                    </svg>
-                    Enviar</button>
-            </form>
-        </section>
+        </div>
 
     </section>
 </template>

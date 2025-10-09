@@ -46,7 +46,7 @@ export default {
                     <div class="hidden md:block w-1/2">
                         <img :src="loginImage"
                              alt="Paisaje de pradera"
-                             class="object-cover aspect-[3/2.2] rounded-tl-2xl rounded-bl-2xl" />
+                             class="object-cover h-full rounded-tl-2xl rounded-bl-2xl" />
                     </div>
                     <div
                          class="w-full md:w-1/2 flex flex-col">

@@ -134,15 +134,19 @@ export default {
                         No hay mensajes aún.
                     </div>
                     <div v-else>
-                        <h3 class="sr-only">Posteos</h3>
+                        <div class="md:w-3/5 w-full">
+                        <h2 class="font-bold text-3xl mb-5 md:mb-10">Mis Mensajes</h2>
                         <ol data-aos="fade"
                             aria-label="Posteos"
-                            ref="postsContainer">
+                            ref="postsContainer"
+                            class="-ml-[12.5%]"
+                            >
                             <PostCard v-for="post in posts"
                                     :key="post.id"
                                     :post="post"
                                     :user="user" />
                         </ol>
+                        </div>
                     </div>
                 </div>
             </template>
