@@ -1,6 +1,7 @@
 <script>
 import MainLoader from '../components/MainLoader.vue';
 import { subscribeToAuthStateChanges, updateAuthenticatedUser } from '../services/auth';
+import Swal from 'sweetalert2';
 
 let unsubscribeAuth = () => { };
 
@@ -23,10 +24,26 @@ export default {
         async editProfile() {
             try {
 
-                await updateAuthenticatedUser(this.updateFormData);
+                await updateAuthenticatedUser({
+                    full_name: this.updateFormData.full_name,
+                    biography: this.updateFormData.biography,
+                    career: this.updateFormData.career
+                });
+
+                if (this.updateFormData.password != '') {
+                    await changePassword(this.updateFormData.password);
+                }
 
                 //si el perfil se edito correctamente mandar a perfil
-                this.$router.push('/mi-perfil');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Perfil editado correctamente',
+                    showConfirmButton: true,
+                    timer: 3000,
+                    confirmButtonColor: '#348534',
+                }).then(() => {
+                    this.$router.push('/mi-perfil');
+                });
             } catch (error) {
                 console.error("[EditMyProfile.vue sendMessage] Error al editar perfil: ", error);
 
@@ -35,15 +52,21 @@ export default {
     },
     mounted() {
         //cargar datos al form
-        unsubscribeAuth = subscribeToAuthStateChanges(newUserStatus => {
 
-            this.updateFormData = {
-                full_name: newUserStatus.full_name,
-                biography: newUserStatus.biography,
-                career: newUserStatus.career
+        let initialized = false;
+
+        unsubscribeAuth = subscribeToAuthStateChanges(newUserStatus => {
+            if (!initialized) {
+                this.updateFormData = {
+                    full_name: newUserStatus.full_name,
+                    biography: newUserStatus.biography,
+                    career: newUserStatus.career,
+                    password: ''
+                }
             }
         });
 
+        initialized = true;
         this.loading = false;
     },
     unmounted() {
@@ -98,6 +121,17 @@ export default {
                                         id="biography"
                                         v-model="updateFormData.biography"
                                         rows="3"></textarea>
+                                </div>
+                                <div>
+                            <label class="text-lg font-bold"
+                           for="password">Contraseña</label>
+                    <input class="py-3 my-3"
+                           type="password"
+                           placeholder="Contraseña"
+                           name="password"
+                           id="password"
+                           v-model="updateFormData.password">
+
                                 </div>
                                 <div class="text-right">
                                     <button type="submit"
