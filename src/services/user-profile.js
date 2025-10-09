@@ -25,12 +25,8 @@ export async function addUserProfile(data) {
  * @param {{career?: string|null, biography?: string|null, full_name: string}} data 
  */
 export async function updateUserProfileByPK(id, data) {
-    const { error } = await supabase
-        .from('user_profiles')
-        .update(data)
-        .eq('id', id);
 
-    if (!data.full_name || data.full_name.trim().length === 0) {
+     if (!data.full_name || data.full_name.trim().length === 0) {
         console.error('[user-profile.js updateUserProfileByPK] No se pudo editar el perfil: Datos insuficientes.');
 
         Swal.fire({
@@ -43,6 +39,11 @@ export async function updateUserProfileByPK(id, data) {
 
         throw new Error('Error al editar el perfil. Datos insuficientes.');
     }
+
+    const { error } = await supabase
+        .from('user_profiles')
+        .update(data)
+        .eq('id', id);
 
     if (error) {
         console.error('[user-profile.js updateUserProfileByPK] No se pudo editar el perfil: ', error);
