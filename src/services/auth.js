@@ -8,7 +8,7 @@ let user = {
     email: null,
     full_name: null,
     biography: null,
-    careerr: null
+    career: null
 }
 
 //definicion de array observers
@@ -17,7 +17,7 @@ let observers = [];
 //obtener user desde el principio para que no se rediriga al login al recargar en una ruta protegida
 if (localStorage.getItem('user-data')) {
     user = JSON.parse(localStorage.getItem('user-data'));
-    console.log(user)
+    //console.log(user)
 }
 
 //carga el usuario actual
@@ -280,4 +280,44 @@ function setUser(data) {
     }
 
     notifyAll();
+}
+
+/**
+ * Cambia la contraseña del usuario
+ * @param {*} nuevaPassword 
+ */
+export async function changePassword(newPassword) {
+
+    //menos de 6 caracteres tira error
+    if (newPassword.trim().length < 6) {
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La contraseña debe tener al menos 6 caracteres y no puede ser solo espacios.',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error('La contraseña debe tener al menos 6 caracteres y no puede ser solo espacios.');
+    }
+
+    const { error } = await supabase.auth.updateUser({
+        password: newPassword
+    })
+
+    if (error) {
+        console.error('[auth.js cambiarPassword] Error al cambiar la contraseña:', error)
+
+        //alerta
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Ocurrio un error al cambiar la contraseña.',
+            showConfirmButton: true,
+            confirmButtonColor: '#348534',
+        });
+
+        throw new Error(error.message)
+    }
 }
