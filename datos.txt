@@ -2,7 +2,7 @@
 - MATERIA: Clientes web mobile
 - AÑO: 2025, Segundo cuatrimestre del año
 - CUATRIMESTRE: Cuarto cuatrimestre de la carrera
-- TURNO: tarde
+- TURNO: Tarde
 - COMISIÓN: DWT4AV
 - ALUMNOS: Bento Herminia y Fiorotto Mateo
 - DOCENTE: Santiago Gallino
