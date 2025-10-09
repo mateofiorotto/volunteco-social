@@ -90,7 +90,7 @@ export default {
                             <li>
                                 <RouterLink to="/posteos"
                                             :class="routeName === 'Posteos' ? 'text-secondary' : 'text-primary'">
-                                    Posteos</RouterLink>
+                                    Publicaciones</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/mi-perfil"

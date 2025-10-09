@@ -41,7 +41,7 @@ export default {
                         </li>
                         <li>
                             <RouterLink to="/posteos"
-                                        class="hover:text-light">Mensajes</RouterLink>
+                                        class="hover:text-light">Publicaciones</RouterLink>
                         </li>
                     </template>
                     <template v-else>

@@ -81,5 +81,18 @@
       @apply bg-primary-dark text-white;
     }
   }
+  .swal2-icon.swal2-success .swal2-success-ring {
+    border-color: var(--color-primary) !important;
+  }
+  .swal2-icon.swal2-success [class^=swal2-success-line] {
+      background-color: var(--color-primary) !important;
+  }
+  .swal2-icon.swal2-error {
+      color: var(--color-secondary) !important;
+      border-color: var(--color-secondary) !important;
+  }
+  .swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+      background-color: var(--color-secondary) !important;
+  }
 
 }

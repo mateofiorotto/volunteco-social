@@ -1,5 +1,5 @@
 <script>
-import errorImage from '../assets/error.png'
+import errorImage from '../assets/iso.svg'
 
 export default {
   data() {
@@ -11,14 +11,17 @@ export default {
 </script>
 <template>
   <section data-aos="fade"
-           class="w-full h-[85vh] flex justify-center items-center flex-col">
-    <img alt="Error 404"
-         class="w-50"
-         :src="errorImage">
-    <h2 class="font-bold uppercase text-3xl text-center mb-10 mt-10 text-primary">No Encontrado</h2>
-    <p class="text-center text-xl">Lo sentimos, la pagina que estas buscando no existe.</p>
-    <RouterLink to="/"
-                class="text-xl btn mt-10 text-primary font-semibold underline">
-      Volver al inicio</RouterLink>
+           class="flex-grow content-center">
+      <div class="p-6 md:p-8 mx-auto w-full max-w-3xl text-center space-y-6">
+          <img alt="Error 404"
+              class="w-35 mx-auto"
+              :src="errorImage">
+          <div class="font-bold uppercase text-8xl text-primary">404</div>
+          <h2 class="font-bold uppercase text-2xl text-primary">Página no encontrada</h2>
+          <p class="text-center text-xl">Lo sentimos, la pagina que estas buscando no existe.</p>
+          <RouterLink to="/"
+                      class="btn btn-primary">
+            Volver al inicio</RouterLink>
+      </div>
   </section>
 </template>
