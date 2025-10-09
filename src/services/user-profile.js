@@ -30,10 +30,9 @@ export async function updateUserProfileByPK(id, data) {
         .update(data)
         .eq('id', id);
 
-    if (!data.full_name) {
+    if (!data.full_name || data.full_name.trim().length === 0) {
         console.error('[user-profile.js updateUserProfileByPK] No se pudo editar el perfil: Datos insuficientes.');
 
-        //alerta
         Swal.fire({
             icon: 'error',
             title: 'ERROR',
