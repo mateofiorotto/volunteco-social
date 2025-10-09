@@ -32,7 +32,7 @@ export default {
 </script>
 
 <template>
-    <nav class="bg-white my-10">
+    <nav class="bg-white py-3">
         <div class="max-w-7xl px-4 mx-auto">
             <div class="flex justify-between items-center">
                 <RouterLink to="/"
@@ -59,18 +59,18 @@ export default {
                     </svg>
                 </button>
                 <!-- Menu de navegacion -->
-                <div :class="[open ? 'block mt-13' : 'hidden', 'navbar absolute md:relative md:block border-b-1 border-primary lg:border-b-0']"
+                <div :class="[open ? 'block' : 'hidden', 'navbar absolute md:relative md:block border-b-1 border-primary lg:border-b-0']"
                      id="navbar-default">
-                    <ul class="text-lg flex flex-col md:flex-row gap-3 md:items-center items-end justify-end">
+                    <ul class="flex flex-col md:flex-row gap-4 md:items-center items-end justify-end">
                         <!--Botones de login y registro-->
                         <template v-if="user.id === null">
                             <li>
                                 <RouterLink to="/iniciar-sesion"
-                                            class="btn btn-primary-outline">Iniciar Sesión</RouterLink>
+                                            class="btn btn-primary-outline text-sm">Iniciar sesión</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/registrarse"
-                                            class="btn btn-primary">Registrarse</RouterLink>
+                                            class="btn btn-primary text-sm">Registrarse</RouterLink>
                             </li>
                         </template>
 
@@ -78,44 +78,30 @@ export default {
                         <template v-else>
                             <li>
                                 <RouterLink to="/"
-                                            class="block py-3 px-3 text-primary hover:text-green-600 transition duration-300 
-                                            ease-in-out rounded-sm md:hover:bg-transparent md:hover:text-green-600 md:text-primary md:p-0 
-                                            hover:bg-green-200"
-                                            :class="routeName === 'Inicio' ? 'underline' : ''">
+                                            :class="routeName === 'Inicio' ? 'text-secondary' : 'text-primary'">
                                     Inicio</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/chat"
-                                            class="block py-3 px-3 text-primary hover:text-green-600 transition duration-300 
-                                            ease-in-out rounded-sm md:hover:bg-transparent md:hover:text-green-600 md:text-primary md:p-0 
-                                            hover:bg-green-200"
-                                            :class="routeName === 'Chat' ? 'underline' : ''">
+                                            :class="routeName === 'Chat' ? 'text-secondary' : 'text-primary'">
                                     Chat</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/posteos"
-                                            class="block py-3 px-3 text-primary hover:text-green-600 transition duration-300 
-                                            ease-in-out rounded-sm md:hover:bg-transparent md:hover:text-green-600 md:text-primary md:p-0 
-                                            hover:bg-green-200"
-                                            :class="routeName === 'Posteos' ? 'underline' : ''">
-                                    Posteos</RouterLink>
+                                            :class="routeName === 'Posteos' ? 'text-secondary' : 'text-primary'">
+                                    Mensajes</RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/mi-perfil"
-                                            class="block py-3 px-3 text-primary hover:text-green-600 transition duration-300 
-                                            ease-in-out rounded-sm md:hover:bg-transparent md:hover:text-green-600 md:text-primary md:p-0 
-                                            hover:bg-green-200"
-                                            :class="routeName === 'Mi perfil' ? 'underline' : ''">
+                                            :class="routeName === 'Mi perfil' ? 'text-secondary' : 'text-primary'">
                                     {{ user.full_name }}</RouterLink>
                             </li>
                             <li>
                                 <form action="#"
                                       @submit.prevent="handleLogout">
                                     <button type="submit"
-                                            class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
-                                        <i class="fa fa-sign-out">
-                                            <span class="sr-only">icono de logout</span>
-                                        </i>
+                                            class="btn btn-primary-outline text-sm">
+                                            Logout
                                     </button>
                                 </form>
                             </li>

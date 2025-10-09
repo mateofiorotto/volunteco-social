@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-    <footer class="bg-primary text-white py-6">
+    <footer class="bg-primary text-white py-6 border-t border-white">
         <div class="px-4 mx-auto max-w-7xl">
             <div class="flex md:flex-row gap-6 flex-col items-center justify-between">
                 <RouterLink to="/"><img :src="logo"
@@ -33,38 +33,38 @@ export default {
                     <template v-if="user.id != null">
                         <li>
                             <RouterLink to="/"
-                                        class="hover:underline">Inicio</RouterLink>
+                                        class="hover:text-light">Inicio</RouterLink>
                         </li>
                         <li>
                             <RouterLink to="/chat"
-                                        class="hover:underline">Chat</RouterLink>
+                                        class="hover:text-light">Chat</RouterLink>
                         </li>
                         <li>
                             <RouterLink to="/posteos"
-                                        class="hover:underline">Posteos</RouterLink>
+                                        class="hover:text-light">Posteos</RouterLink>
                         </li>
                     </template>
                     <template v-else>
                         <li>
                             <RouterLink to="/iniciar-sesion"
-                                        class="hover:underline">Iniciar sesión</RouterLink>
+                                        class="hover:text-light">Iniciar sesión</RouterLink>
                         </li>
                         <li>
                             <RouterLink to="/registrarse"
-                                        class="hover:underline">Registrarse</RouterLink>
+                                        class="hover:text-light">Registrarse</RouterLink>
                         </li>
                     </template>
                 </ul>
             </div>
             <div
                  class="flex flex-col md:flex-row gap-3 text-center md:text-left justify-center md:justify-between border-t mt-5 pt-5 items-center">
-                <p class="">Cuidemos al medioambiente.<br />Bento Herminia y Fiorotto Mateo.</p>
+                <p>Cuidemos al medioambiente.<br />Herminia Bento y Mateo Fiorotto.</p>
                 <ul class="redes flex flex-row justify-center gap-7 text-3xl">
                     <li class="red-social">
                         <a href="https://www.instagram.com/volunteco"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                           class="hover:text-light">
                             <i class="fa-brands fa-instagram">
                                 <span class="sr-only">icono de Instagram</span>
                             </i>
@@ -74,7 +74,7 @@ export default {
                         <a href="https://www.facebook.com/volunteco"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                           class="hover:text-light">
                             <i class="fa-brands fa-facebook">
                                 <span class="sr-only">icono de Facebook</span>
                             </i>
@@ -84,7 +84,7 @@ export default {
                         <a href="https://twitter.com/volunteco"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                           class="hover:text-light">
                             <i class="fa-brands fa-x-twitter">
                                 <span class="sr-only">icono de Twitter</span>
                             </i>
@@ -94,7 +94,7 @@ export default {
                         <a href="https://github.com/mateofiorotto/volunteco-social"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="cursor-pointer hover:text-green-300 transition duration-300 ease-in-out">
+                           class="hover:text-light">
                             <i class="fa-brands fa-github">
                                 <span class="sr-only">icono de Github</span>
                             </i>

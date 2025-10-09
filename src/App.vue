@@ -14,7 +14,7 @@ export default {
     <header class="border-b-1 border-primary">
         <AppNavbar />
     </header>
-    <main>
+    <main class="flex-grow flex flex-col">
         <RouterView />
     </main>
     <AppFooter />

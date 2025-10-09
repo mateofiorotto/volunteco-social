@@ -18,7 +18,7 @@ export default {
     <h2 class="font-bold uppercase text-3xl text-center mb-10 mt-10 text-primary">No Encontrado</h2>
     <p class="text-center text-xl">Lo sentimos, la pagina que estas buscando no existe.</p>
     <RouterLink to="/"
-                class="text-xl btn mt-10 text-primary font-semibold underline hover:text-green-600 transition-all duration-300 ease-in-out">
+                class="text-xl btn mt-10 text-primary font-semibold underline">
       Volver al inicio</RouterLink>
   </section>
 </template>
